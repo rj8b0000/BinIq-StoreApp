@@ -21,10 +21,11 @@ import Share_Icon from '../../../assets/share_icon.svg';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { Star, Heart } from "lucide-react-native";
 
 
 const { width } = Dimensions.get('window');
-const SingleItemPage = () => {
+const PromotionScreen = () => {
     const navigation = useNavigation();
 
     const myFavourites = [{
@@ -44,23 +45,49 @@ const SingleItemPage = () => {
         totalDiscount: '60% off'
     }
     ]
-    const renderMyFavourites = ({ item }) => (
-        <View style={{ width: wp(45), height: hp(26), alignItems: 'center', marginVertical: '1%' }}>
-            <View style={{ width: wp(43), height: hp(26), borderRadius: 5, borderWidth: 1, borderColor: '#e6e6e6', backgroundColor: '#fff' }}>
-                <Image source={item.image} style={{ width: wp(43), height: hp(13), borderRadius: 5 }} />
-                <Ionicons name='heart' size={hp(3)} color={'#EE2525'} style={{ position: 'absolute', right: '2%', top: '2%' }} />
-                <View style={{ paddingHorizontal: '1%' }}>
-                    <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(1.7), margin: '0.5%' }}>{item.description}</Text>
+    const renderItem = ({ item }) => {
+        return (
+            <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('PromotionScreen')}>
+                <Image source={require('../../../assets/dummy_product.png')} style={styles.image} />
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.subtitle}>{item.subtitle}</Text>
+                <View style={styles.ratingContainer}>
+                    <Star size={12} color="#FFD700" fill="#FFD700" />
+                    <Text style={styles.rating}>{item.rating}</Text>
+                    <Text style={styles.reviews}>{item.reviews} Reviews</Text>
                 </View>
-                <View style={{ position: 'absolute', bottom: '2%', paddingHorizontal: '3%' }}>
-                    <View>
-                        <Text style={{ fontFamily: 'Nunito-Bold', color: '#000', fontSize: hp(1.8) }}>{item.discountPrice}</Text>
-                        <Text style={{ color: 'red' }}><Text style={{ fontFamily: 'Nunito-Bold', color: '#808488', fontSize: hp(1.8), textDecorationLine: 'line-through' }}>{item.originalPrice}</Text>{'  '}{item.totalDiscount}</Text>
-                    </View>
-                </View>
-            </View>
-        </View>
-    );
+                <TouchableOpacity style={styles.heartButton}>
+                    <Heart size={13} color="red" />
+                </TouchableOpacity>
+            </TouchableOpacity>
+        )
+    }
+    const products = [
+        {
+            id: "1",
+            name: "TMA-2 HD Wireless",
+            subtitle: "Hidden Finds",
+            rating: 4.8,
+            reviews: 88,
+            image: "https://placeholder.com/150"
+        },
+        {
+            id: "2",
+            name: "TMA-2 HD Wireless",
+            subtitle: "ANC Store",
+            rating: 4.8,
+            reviews: 88,
+            image: "https://placeholder.com/150"
+        },
+        {
+            id: "3",
+            name: "TMA-2 HD Wireless",
+            subtitle: "Hidden Finds",
+            rating: 4.8,
+            reviews: 88,
+            image: "https://placeholder.com/150"
+        },
+    ]
 
 
     return (
@@ -76,7 +103,7 @@ const SingleItemPage = () => {
                         <Pressable onPress={() => navigation.goBack()}>
                             <MaterialIcons name='arrow-back-ios' color={'#0D0D26'} size={25} />
                         </Pressable>
-                        <Text style={styles.headerText}>Item</Text>
+                        <Text style={styles.headerText}>Promotion</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '23%' }}>
                         <Pressable onPress={() => navigation.goBack()}>
@@ -88,35 +115,18 @@ const SingleItemPage = () => {
                     </View>
                 </View>
                 <View style={{ width: '90%', height: hp(27), marginHorizontal: '5%', borderRadius: 10, marginVertical: '5%' }}>
-                    <Image source={require('../../../assets/specific_item.png')} style={{ width: '100%', height: '100%', borderRadius: 10 }} />
+                    <Image source={require('../../../assets/promotion_img.png')} style={{ width: '100%', height: '100%', borderRadius: 10 }} />
                 </View>
                 <View style={{ paddingHorizontal: '5%' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <View style={styles.ratingContainer}>
-                            <Ionicons name="star" size={18} color="#FFD700" />
-                            <Ionicons name="star" size={18} color="#FFD700" />
-                            <Ionicons name="star" size={18} color="#FFD700" />
-                            <Ionicons name="star" size={18} color="#FFD700" />
-                            <Ionicons name="star-half" size={18} color="#FFD700" />
-                            <Text style={styles.ratingText}>56,890</Text>
-                        </View>
-                    </View>
-                    <View style={styles.priceContainer}>
-                        <Text style={styles.originalPrice}>₹2,999</Text>
-                        <Text style={styles.discountedPrice}>₹1,500</Text>
-                        <Text style={styles.discount}>50% Off</Text>
-                    </View>
                     <View style={styles.detailsContainer}>
-                        <Text style={styles.title}>Wireless Bluetooth Mouse with USB Receiver</Text>
+                        <Text style={styles.title}>Title - 50% Off</Text>
                         <View style={{ marginVertical: '1%' }}>
-                            <Text style={styles.detailsTitle}>Item Details</Text>
+                            <Text style={styles.detailsTitle}>Description</Text>
                             <Text style={styles.detailsText}>
-                                A high-quality wireless mouse compatible with PCs, laptops, and tablets. Features a sleek design, USB receiver, and adjustable DPI settings for smooth navigation. More.....
+                                Perhaps the most iconic sneaker of all-time, this original "Chicago"? colorway is the cornerstone to any sneaker collection. Made famous in 1985 by Michael Jordan, the shoe has stood the test of time, becoming the most famous colorway of the Air Jordan 1. This 2015 release saw the ...More
                             </Text>
                         </View>
                         <View style={{ marginVertical: '1%' }}>
-                            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2), color: '#000', marginBottom: 4, }}>Category: <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: hp(1.9), color: '#666' }}>Electronics</Text></Text>
-                            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2), color: '#000', marginBottom: 4, }}>UPC #: <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: hp(1.7), color: '#666' }}>2233243432432</Text></Text>
                             <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2), color: '#000', marginBottom: 4, }}>Tags - <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: hp(1.7), color: '#666' }}>"Summer Collection"</Text></Text>
                             <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2), color: '#000', marginBottom: 4, }}>Date and time -<Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: hp(1.7), color: '#666' }}>14/11/24, 12.30</Text></Text>
                         </View>
@@ -127,7 +137,7 @@ const SingleItemPage = () => {
                             <FontAwesome name="edit" size={18} color="#000" />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Replace</Text>
+                            <Text style={styles.buttonText}>Reactive Promotion</Text>
                             <MaterialCommunityIcons name="file-replace" size={18} color="#000" />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button}>
@@ -136,13 +146,14 @@ const SingleItemPage = () => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginVertical: '3%' }}>
-                        <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.3), color: '#000000', marginVertical: '5%' }}>SIMILAR ITEMS</Text>
-                        <View style={{ flex: 1, width: '100%', alignItems: 'center' }}>
+                        <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.3), color: '#000000', marginVertical: '5%' }}>Similar Promotions</Text>
+                        <View style={{ flex: 1, width: '100%', marginBottom: '10%' }}>
                             <FlatList
-                                data={myFavourites}
-                                renderItem={renderMyFavourites}
-                                keyExtractor={(item) => item.id.toString()}
-                                numColumns={2}
+                                data={products}
+                                renderItem={renderItem}
+                                keyExtractor={item => item.id}
+                                numColumns={3}
+                                showsVerticalScrollIndicator={false}
                             />
                         </View>
                     </View>
@@ -265,30 +276,34 @@ const styles = StyleSheet.create({
         width: wp(100),
     },
     card: {
-        margin: '1.5%',
+        width: '20%', // Adjust the width to allow space between columns
+        flex: 1,
         backgroundColor: "#fff",
         borderRadius: 8,
-        padding: '3%',
+        padding: '2%',
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 3
+        elevation: 3,
+        marginHorizontal: '0.85%',
+        marginBottom: '5%',
     },
     image: {
         width: "100%",
         marginBottom: 10,
     },
     name: {
-        fontSize: 16,
-        fontWeight: "bold",
+        fontSize: hp(1.36),
         marginBottom: 4,
-        color: '#000'
+        color: '#000',
+        fontFamily: 'DMSans-SemiBold'
     },
     subtitle: {
-        fontSize: 14,
-        color: "#666",
-        marginBottom: 8
+        fontSize: hp(1.5),
+        color: "#14BA9C",
+        fontFamily: 'DMSans-SemiBold',
+        marginBottom: '8%',
     },
     ratingContainer: {
         flexDirection: "row",
@@ -296,19 +311,19 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     rating: {
-        marginLeft: 4,
-        fontSize: 14,
+        // marginLeft: 4,
+        fontSize: hp(1.3),
         fontWeight: "bold",
         color: '#000'
     },
     reviews: {
         marginLeft: 4,
-        fontSize: 12,
+        fontSize: hp(1.2),
         color: "#666"
     },
     heartButton: {
         position: "absolute",
-        bottom: '2%',
+        bottom: '4%',
         right: '1%',
         borderRadius: 15,
         padding: 5
@@ -381,12 +396,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#f1f3f4',
         borderRadius: 4,
-        flex: 1,
-        marginHorizontal: '2%',
         elevation: 2,
         height: hp(7),
         marginVertical: '5%',
-        gap: 4
+        gap: 4,
+        paddingHorizontal: '2%'
     },
     buttonText: {
         fontFamily: 'Nunito-SemiBold',
@@ -426,4 +440,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SingleItemPage;
+export default PromotionScreen;

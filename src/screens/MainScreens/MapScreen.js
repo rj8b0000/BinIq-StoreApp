@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, Pressable, StatusBar, StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, AccessibilityInfo, FlatList, TouchableWithoutFeedback } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -15,6 +15,9 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 
 const MapScreen = () => {
   const navigation = useNavigation();
+  useEffect(() => {
+    launchCamera()
+  }, [])
 
   // Dummy location data
   const [markers, setMarkers] = useState([

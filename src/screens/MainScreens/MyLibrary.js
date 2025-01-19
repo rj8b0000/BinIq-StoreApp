@@ -21,7 +21,10 @@ import CameraIcon from '../../../assets/CameraIcon.svg';
 import FilterIcon from '../../../assets/FilterIcon.svg';
 import VictoryPie from 'victory-native';
 import Svg, { Text as SvgText } from 'react-native-svg';
-import PieGraph from '../../Components/PieGraph';
+// import PieGraph from '../../Components/PieGraph';
+import PieGraph from '../../../assets/PieGraph.svg';
+import SettingsIcon from '../../../assets/SettingsIcon.svg';
+import Filter_NewIcon from '../../../assets/Filter_NewIcon.svg';
 import * as Progress from 'react-native-progress';
 
 const { width } = Dimensions.get('window');
@@ -29,24 +32,6 @@ const ScanHistoryScreen = () => {
   const navigation = useNavigation();
   const renderItem = ({ item }) => {
     return (
-      // <Pressable style={{ width: wp(50), height: hp(23), marginVertical: '7%' }} onPress={() => navigation.navigate('TopBinsNearMe')}>
-      //   <View style={{ width: wp(47), height: hp(21.5), borderRadius: 10, elevation: 2, backgroundColor: '#fff' }}>
-      //     <Image source={item.image} style={{ width: wp(47), height: hp(12), borderRadius: 10 }} />
-      //     {/* <Ionicons name='heart' size={hp(3)} color={'#EE2525'} style={{ position: 'absolute', right: '2%', top: '2%' }} /> */}
-      //     <View style={{ margin: '5%', flexDirection: 'row', justifyContent: 'space-between' }}>
-      //       <View>
-      //         <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#0049AF', fontSize: hp(2) }}>{item.title}</Text>
-      //         <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(1.6) }}>{item.location}</Text>
-      //         <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#14BA9C', fontSize: hp(1.4) }}>{item.distance}</Text>
-      //       </View>
-      //       <View style={{ backgroundColor: '#FFBB36', height: hp(2.3), width: wp(11), flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', padding: '1.4%', borderRadius: 4 }}>
-      //         {/* <FontAwesome name='star' size={12} color={'#fff'} /> */}
-      //         <Text style={{ color: '#fff', fontFamily: 'Nunito-Regular', fontSize: hp(1.6) }}>{item.review}</Text>
-      //       </View>
-      //     </View>
-      //   </View>
-      // </Pressable>
-      // <View style={{ flex: 1 }}>
       <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('SinglePageItem')}>
         <Image source={require('../../../assets/dummy_product.png')} style={styles.image} />
         <Text style={styles.name}>{item.name}</Text>
@@ -60,28 +45,11 @@ const ScanHistoryScreen = () => {
           <Heart size={13} color="red" />
         </TouchableOpacity>
       </TouchableOpacity>
-      // </View>
     )
   }
   return (
     <View style={{ width: '100%' }}>
-      <View style={{ width: '95%', alignSelf: 'center', marginVertical: '5%' }}>
-        <Progress.Bar
-          progress={progress}
-          width={null}
-          height={10}
-          borderWidth={0}
-          borderRadius={5}
-          color="#FFA726" // Orange color for the progress
-          unfilledColor="#90CAF9" // Light blue color for the remaining
-        />
-        <View style={{ marginVertical: '2%' }}>
-          <Text style={{ fontFamily: 'Nunito-Bold', color: '#130160', fontSize: wp(4.5) }}>Available balance</Text>
-          <Text style={{ fontFamily: 'Nunito-Bold', color: '#130160', fontSize: wp(5) }}>
-            <Text style={{ fontFamily: 'Nunito-Bold', color: '#FFBB36', fontSize: wp(5) }}>{currentBalance}</Text>/{maxBalance}
-          </Text>
-        </View>
-      </View>
+      <View style={{ width: '95%', alignSelf: 'center', marginVertical: '2%' }} />
       <View style={{ ...styles.searchParent, marginBottom: '4%' }}>
         <Pressable style={styles.searchContainer}>
           <View style={styles.cameraButton}>
@@ -89,11 +57,14 @@ const ScanHistoryScreen = () => {
           </View>
           <Text style={styles.input}>search for anything</Text>
         </Pressable>
+        <TouchableOpacity style={styles.menuButton}>
+          <Filter_NewIcon />
+        </TouchableOpacity>
       </View>
       <View style={{ height: hp(38), flexDirection: 'row' }}>
         <View style={{ width: '72%', justifyContent: 'space-around', alignItems: 'center' }}>
           <View style={{ width: '80%' }}>
-            <Text style={{ color: '#130160', fontFamily: 'Nunito-SemiBold', fontSize: hp(2), textDecorationLine: 'underline' }}>SCANS CATEGORY</Text>
+            <Text style={{ color: '#130160', fontFamily: 'Nunito-SemiBold', fontSize: hp(2), textDecorationLine: 'underline' }}>UPLOADS CATEGORY</Text>
           </View>
           <View>
             <PieGraph />
@@ -113,7 +84,7 @@ const ScanHistoryScreen = () => {
             </View>
           </View>
         </View>
-        <View style={{ width: '28%', height: '100%', justifyContent: 'space-between', }}>
+        <View style={{ width: '28%', height: '60%', alignSelf: 'center', justifyContent: 'space-between' }}>
           <View style={{ height: '18%', width: '100%', }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <View style={{ width: 13, height: 13, backgroundColor: '#0049AF', borderRadius: 20 }} />
@@ -141,92 +112,255 @@ const ScanHistoryScreen = () => {
               <Text style={{ color: '#000', fontWeight: '600', fontSize: hp(2.2) }}>45%</Text>
             </View>
           </View>
-          <View style={{ height: '18%', width: '100%', paddingRight: '4%' }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <View style={{ width: 13, height: 13, backgroundColor: '#FF9F40', borderRadius: 20 }} />
-              <Text style={{ color: 'gray', fontWeight: 'semibold', fontSize: hp(1.9) }}>Category 4</Text>
-            </View>
-            <View style={{ width: '68%', height: '69%', alignItems: 'flex-start', alignSelf: 'flex-end', paddingVertical: '1%' }}>
-              <Text style={{ color: '#000', fontWeight: '600', fontSize: hp(2.2) }}>45%</Text>
-            </View>
-          </View>
-          <View style={{ height: '18%', width: '100%', paddingRight: '4%' }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <View style={{ width: 13, height: 13, backgroundColor: '#14BA9C', borderRadius: 20 }} />
-              <Text style={{ color: 'gray', fontWeight: 'semibold', fontSize: hp(1.9) }}>Category 5</Text>
-            </View>
-            <View style={{ width: '68%', height: '69%', alignItems: 'flex-start', alignSelf: 'flex-end', paddingVertical: '1%' }}>
-              <Text style={{ color: '#000', fontWeight: '600', fontSize: hp(2.2) }}>45%</Text>
-            </View>
-          </View>
         </View>
       </View>
       <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: '8%', paddingHorizontal: '2%' }}>
-        <Text style={{ color: '#000000', fontFamily: 'Nunito-Bold', fontSize: hp(2.4) }}>MY ITEMS</Text>
-        <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text>
+        <Text style={{ color: '#000000', fontFamily: 'Nunito-Bold', fontSize: hp(2.4) }}>RECENT UPLOADS</Text>
+        {/* <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text> */}
       </View>
-      <View style={{ flex: 1, width: '100%', marginBottom: '22%' }}>
+      <View style={{ flex: 1, width: '100%' }}>
         <FlatList
           data={products}
           renderItem={renderItem}
           keyExtractor={item => item.id}
           numColumns={3}
-          // columnWrapperStyle={{ justifyContent: 'space-between', marginVertical: '5%' }}
           showsVerticalScrollIndicator={false}
-        // contentContainerStyle={{ paddingHorizontal: 10 }}
         />
+      </View>
+      <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: '8%', paddingHorizontal: '2%' }}>
+        <Text style={{ color: '#000000', fontFamily: 'Nunito-Bold', fontSize: hp(2.4) }}>OLDEST UPLOADS</Text>
+        {/* <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text> */}
+      </View>
+      <View style={{ flex: 1, width: '100%', marginBottom: '10%' }}>
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={3}
+          showsVerticalScrollIndicator={false}
+        />
+        <TouchableOpacity style={styles.gettingStarted} onPress={() => navigation.navigate('UploadScreen')}>
+          <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#fff', fontSize: hp(2.1) }}>Upload New Content</Text>
+        </TouchableOpacity>
+        <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline', textAlign: 'center', marginVertical: '7%' }}>View Details</Text>
       </View>
     </View>
   );
 };
 
 const MyItemsScreen = () => {
-  return (
-    <View style={{ marginBottom: '22%' }}>
-      <View style={{ width: '95%', alignSelf: 'center', marginVertical: '5%' }}>
-        <Progress.Bar
-          progress={progress}
-          width={null}
-          height={10}
-          borderWidth={0}
-          borderRadius={5}
-          color="#FFA726" // Orange color for the progress
-          unfilledColor="#90CAF9" // Light blue color for the remaining
-        />
-        <View style={{ marginVertical: '2%' }}>
-          <Text style={{ fontFamily: 'Nunito-Bold', color: '#130160', fontSize: wp(4.5) }}>Available balance</Text>
-          <Text style={{ fontFamily: 'Nunito-Bold', color: '#130160', fontSize: wp(5) }}>
-            <Text style={{ fontFamily: 'Nunito-Bold', color: '#FFBB36', fontSize: wp(5) }}>{currentBalance}</Text>/{maxBalance}
-          </Text>
+  const navigation = useNavigation();
+  const renderItem = ({ item }) => {
+    return (
+      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('SinglePageItem')}>
+        <Image source={require('../../../assets/dummy_product.png')} style={styles.image} />
+        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.subtitle}>{item.subtitle}</Text>
+        <View style={styles.ratingContainer}>
+          <Star size={12} color="#FFD700" fill="#FFD700" />
+          <Text style={styles.rating}>{item.rating}</Text>
+          <Text style={styles.reviews}>{item.reviews} Reviews</Text>
         </View>
-      </View>
-      <View style={styles.searchParent}>
+        <TouchableOpacity style={styles.heartButton}>
+          <Heart size={13} color="red" />
+        </TouchableOpacity>
+      </TouchableOpacity>
+    )
+  }
+  return (
+    <View style={{ width: '100%' }}>
+      <View style={{ width: '95%', alignSelf: 'center', marginVertical: '2%' }} />
+      <View style={{ ...styles.searchParent, marginBottom: '4%' }}>
         <Pressable style={styles.searchContainer}>
           <View style={styles.cameraButton}>
             <SearchIcon />
           </View>
           <Text style={styles.input}>search for anything</Text>
         </Pressable>
+        <TouchableOpacity style={styles.menuButton}>
+          <Filter_NewIcon />
+        </TouchableOpacity>
       </View>
-      <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: '7%', paddingHorizontal: '2%' }}>
-        <Text style={{ color: '#000000', fontFamily: 'Nunito-Bold', fontSize: hp(2.2) }}>SCANS HISTORY</Text>
-        <Text style={{ color: '#524B6B', fontSize: hp(2), textDecorationLine: 'underline' }}>View All</Text>
+      <View style={{ height: hp(38), flexDirection: 'row' }}>
+        <View style={{ width: '72%', justifyContent: 'space-around', alignItems: 'center' }}>
+          <View style={{ width: '80%' }}>
+            <Text style={{ color: '#130160', fontFamily: 'Nunito-SemiBold', fontSize: hp(2), textDecorationLine: 'underline' }}>UPLOADS CATEGORY</Text>
+          </View>
+          <View>
+            <PieGraph />
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: wp(4), height: hp(1.2), backgroundColor: '#0049AF', borderRadius: 3 }} />
+              <Text style={{ color: '#000', fontWeight: 'semibold', fontSize: hp(1.4) }}> Category 1</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: wp(4), height: hp(1.2), backgroundColor: '#FFBB36', borderRadius: 3 }} />
+              <Text style={{ color: '#000', fontWeight: 'semibold', fontSize: hp(1.4) }}> Category 1</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: wp(4), height: hp(1.2), backgroundColor: '#70B6C1', borderRadius: 3 }} />
+              <Text style={{ color: '#000', fontWeight: 'semibold', fontSize: hp(1.4) }}> Category 1</Text>
+            </View>
+          </View>
+        </View>
+        <View style={{ width: '28%', height: '60%', alignSelf: 'center', justifyContent: 'space-between' }}>
+          <View style={{ height: '18%', width: '100%', }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: 13, height: 13, backgroundColor: '#0049AF', borderRadius: 20 }} />
+              <Text style={{ color: 'gray', fontWeight: 'semibold', fontSize: hp(1.9) }}>Category 1</Text>
+            </View>
+            <View style={{ width: '68%', height: '69%', alignItems: 'flex-start', alignSelf: 'flex-end', paddingVertical: '1%' }}>
+              <Text style={{ color: '#000', fontWeight: '600', fontSize: hp(2.2) }}>45%</Text>
+            </View>
+          </View>
+          <View style={{ height: '18%', width: '100%', paddingRight: '4%' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: 13, height: 13, backgroundColor: '#70B6C1', borderRadius: 20 }} />
+              <Text style={{ color: 'gray', fontWeight: 'semibold', fontSize: hp(1.9) }}>Category 2</Text>
+            </View>
+            <View style={{ width: '68%', height: '69%', alignItems: 'flex-start', alignSelf: 'flex-end', paddingVertical: '1%' }}>
+              <Text style={{ color: '#000', fontWeight: '600', fontSize: hp(2.2) }}>45%</Text>
+            </View>
+          </View>
+          <View style={{ height: '18%', width: '100%', paddingRight: '4%' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: 13, height: 13, backgroundColor: '#6F19C2', borderRadius: 20 }} />
+              <Text style={{ color: 'gray', fontWeight: 'semibold', fontSize: hp(1.9) }}>Category 3</Text>
+            </View>
+            <View style={{ width: '68%', height: '100%', alignItems: 'flex-start', alignSelf: 'flex-end', paddingVertical: '1%' }}>
+              <Text style={{ color: '#000', fontWeight: '600', fontSize: hp(2.2) }}>45%</Text>
+            </View>
+          </View>
+        </View>
       </View>
-      <FlatList
-        data={products}
-        renderItem={({ item }) => <ProductCard product={item} />}
-        keyExtractor={item => item.id}
-        numColumns={3}
-      // contentContainerStyle={styles.grid}
-      />
+      <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: '8%', paddingHorizontal: '2%' }}>
+        <Text style={{ color: '#000000', fontFamily: 'Nunito-Bold', fontSize: hp(2.4) }}>RECENT UPLOADS</Text>
+        {/* <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text> */}
+      </View>
+      <View style={{ flex: 1, width: '100%' }}>
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={3}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+      <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: '8%', paddingHorizontal: '2%' }}>
+        <Text style={{ color: '#000000', fontFamily: 'Nunito-Bold', fontSize: hp(2.4) }}>OLDEST UPLOADS</Text>
+        {/* <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text> */}
+      </View>
+      <View style={{ flex: 1, width: '100%', marginBottom: '10%' }}>
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={3}
+          showsVerticalScrollIndicator={false}
+        />
+        <TouchableOpacity style={styles.gettingStarted}>
+          <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#fff', fontSize: hp(2.1) }}>Create New Promotion</Text>
+        </TouchableOpacity>
+        <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline', textAlign: 'center', marginVertical: '7%' }}>View Details</Text>
+      </View>
     </View>
   );
 };
 const AllTotalScans = () => {
+  const navigation = useNavigation();
+  const [active, setActive] = useState(false)
+  const renderItem = ({ item }) => {
+    return (
+      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('PromotionScreen')}>
+        <Image source={require('../../../assets/dummy_product.png')} style={styles.image} />
+        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.subtitle}>{item.subtitle}</Text>
+        <View style={styles.ratingContainer}>
+          <Star size={12} color="#FFD700" fill="#FFD700" />
+          <Text style={styles.rating}>{item.rating}</Text>
+          <Text style={styles.reviews}>{item.reviews} Reviews</Text>
+        </View>
+        <TouchableOpacity style={styles.heartButton}>
+          <Heart size={13} color="red" />
+        </TouchableOpacity>
+      </TouchableOpacity>
+    )
+  }
   return (
-    <View style={{ marginBottom: '22%' }}>
-      <View style={{ height: hp(4) }} />
-      <View style={styles.searchParent}>
+    <View style={{ width: '100%' }}>
+      <View style={{ width: '95%', alignSelf: 'center', marginVertical: '5%' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            height: 50,
+            backgroundColor: '#DDF4F3',
+            borderRadius: 5,
+          }}
+        >
+          {/* Active Promotions Tab */}
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 5,
+              margin: 5,
+              backgroundColor: active ? '#FFFFFF' : 'transparent',
+              elevation: active ? 3 : 0,
+              shadowColor: active ? '#000' : 'transparent',
+              shadowOffset: active ? { width: 0, height: 2 } : null,
+              shadowOpacity: active ? 0.25 : 0,
+              shadowRadius: active ? 3.84 : 0,
+            }}
+            onPress={() => setActive(true)}
+          >
+            <Text
+              style={{
+                fontFamily: 'Nunito-Regular',
+                fontSize: 14,
+                color: active ? '#000' : '#000',
+                fontWeight: active ? '600' : 'normal',
+                opacity: active ? 1 : 0.6,
+              }}
+            >
+              Active Promotions
+            </Text>
+          </TouchableOpacity>
+
+          {/* Expired Promotions Tab */}
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 5,
+              margin: 5,
+              backgroundColor: !active ? '#FFFFFF' : 'transparent',
+              elevation: !active ? 3 : 0,
+              shadowColor: !active ? '#000' : 'transparent',
+              shadowOffset: !active ? { width: 0, height: 2 } : null,
+              shadowOpacity: !active ? 0.25 : 0,
+              shadowRadius: !active ? 3.84 : 0,
+            }}
+            onPress={() => setActive(false)}
+          >
+            <Text
+              style={{
+                fontFamily: 'Nunito-Regular',
+                fontSize: 14,
+                color: !active ? 'red' : '#000',
+                fontWeight: !active ? '600' : 'normal',
+                opacity: !active ? 1 : 0.6,
+              }}
+            >
+              Expired Promotions
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={{ ...styles.searchParent, marginBottom: '4%' }}>
         <Pressable style={styles.searchContainer}>
           <View style={styles.cameraButton}>
             <SearchIcon />
@@ -234,18 +368,89 @@ const AllTotalScans = () => {
           <Text style={styles.input}>search for anything</Text>
         </Pressable>
       </View>
-      <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: '7%', paddingHorizontal: '2%' }}>
-        <Text style={{ color: '#000000', fontFamily: 'Nunito-Bold', fontSize: hp(2.2) }}>MY SCAN</Text>
-        <Text style={{ color: '#524B6B', fontSize: hp(2), textDecorationLine: 'underline' }}>View All</Text>
+      <View style={{ height: hp(38), flexDirection: 'row' }}>
+        <View style={{ width: '72%', justifyContent: 'space-around', alignItems: 'center' }}>
+          <View style={{ width: '80%' }}>
+            <Text style={{ color: '#130160', fontFamily: 'Nunito-SemiBold', fontSize: hp(2), textDecorationLine: 'underline' }}>UPLOADS CATEGORY</Text>
+          </View>
+          <View>
+            <PieGraph />
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: wp(4), height: hp(1.2), backgroundColor: '#0049AF', borderRadius: 3 }} />
+              <Text style={{ color: '#000', fontWeight: 'semibold', fontSize: hp(1.4) }}> Category 1</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: wp(4), height: hp(1.2), backgroundColor: '#FFBB36', borderRadius: 3 }} />
+              <Text style={{ color: '#000', fontWeight: 'semibold', fontSize: hp(1.4) }}> Category 1</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: wp(4), height: hp(1.2), backgroundColor: '#70B6C1', borderRadius: 3 }} />
+              <Text style={{ color: '#000', fontWeight: 'semibold', fontSize: hp(1.4) }}> Category 1</Text>
+            </View>
+          </View>
+        </View>
+        <View style={{ width: '28%', height: '60%', alignSelf: 'center', justifyContent: 'space-between' }}>
+          <View style={{ height: '18%', width: '100%', }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: 13, height: 13, backgroundColor: '#0049AF', borderRadius: 20 }} />
+              <Text style={{ color: 'gray', fontWeight: 'semibold', fontSize: hp(1.9) }}>Category 1</Text>
+            </View>
+            <View style={{ width: '68%', height: '69%', alignItems: 'flex-start', alignSelf: 'flex-end', paddingVertical: '1%' }}>
+              <Text style={{ color: '#000', fontWeight: '600', fontSize: hp(2.2) }}>45%</Text>
+            </View>
+          </View>
+          <View style={{ height: '18%', width: '100%', paddingRight: '4%' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: 13, height: 13, backgroundColor: '#70B6C1', borderRadius: 20 }} />
+              <Text style={{ color: 'gray', fontWeight: 'semibold', fontSize: hp(1.9) }}>Category 2</Text>
+            </View>
+            <View style={{ width: '68%', height: '69%', alignItems: 'flex-start', alignSelf: 'flex-end', paddingVertical: '1%' }}>
+              <Text style={{ color: '#000', fontWeight: '600', fontSize: hp(2.2) }}>45%</Text>
+            </View>
+          </View>
+          <View style={{ height: '18%', width: '100%', paddingRight: '4%' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ width: 13, height: 13, backgroundColor: '#6F19C2', borderRadius: 20 }} />
+              <Text style={{ color: 'gray', fontWeight: 'semibold', fontSize: hp(1.9) }}>Category 3</Text>
+            </View>
+            <View style={{ width: '68%', height: '100%', alignItems: 'flex-start', alignSelf: 'flex-end', paddingVertical: '1%' }}>
+              <Text style={{ color: '#000', fontWeight: '600', fontSize: hp(2.2) }}>45%</Text>
+            </View>
+          </View>
+        </View>
       </View>
-      <FlatList
-        data={products}
-        renderItem={({ item }) => <ProductCard product={item} />}
-        keyExtractor={item => item.id}
-        numColumns={3}
-        contentContainerStyle={styles.grid}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-      />
+      <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: '8%', paddingHorizontal: '2%' }}>
+        <Text style={{ color: '#000000', fontFamily: 'Nunito-Bold', fontSize: hp(2.4) }}>RECENT UPLOADS</Text>
+        {/* <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text> */}
+      </View>
+      <View style={{ flex: 1, width: '100%' }}>
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={3}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+      <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: '8%', paddingHorizontal: '2%' }}>
+        <Text style={{ color: '#000000', fontFamily: 'Nunito-Bold', fontSize: hp(2.4) }}>OLDEST UPLOADS</Text>
+        {/* <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text> */}
+      </View>
+      <View style={{ flex: 1, width: '100%', marginBottom: '10%' }}>
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={3}
+          showsVerticalScrollIndicator={false}
+        />
+        <TouchableOpacity style={styles.gettingStarted} onPress={() => navigation.navigate('NewPromotionScreen')}>
+          <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#fff', fontSize: hp(2.1) }}>Create New Create</Text>
+        </TouchableOpacity>
+        <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline', textAlign: 'center', marginVertical: '7%' }}>View Details</Text>
+      </View>
     </View>
   );
 }
@@ -413,19 +618,19 @@ const MyLibrary = () => {
             style={[styles.tab, activeTab === 'scan' && styles.activeTab]}
             onPress={() => setActiveTab('scan')}
           >
-            <Text style={[styles.tabText, activeTab === 'scan' && styles.activeTabText]}>My Items</Text>
+            <Text style={[styles.tabText, activeTab === 'scan' && styles.activeTabText]}>Feed</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.tab, activeTab === 'items' && styles.activeTab]}
             onPress={() => setActiveTab('items')}
           >
-            <Text style={[styles.tabText, activeTab === 'items' && styles.activeTabText]}>Scan History</Text>
+            <Text style={[styles.tabText, activeTab === 'items' && styles.activeTabText]}>Items</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.tab, activeTab === 'all_scans' && styles.activeTab]}
             onPress={() => setActiveTab('all_scans')}
           >
-            <Text style={[styles.tabText, activeTab === 'all_scans' && styles.activeTabText]}>All Scans</Text>
+            <Text style={[styles.tabText, activeTab === 'all_scans' && styles.activeTabText]}>Promotion</Text>
           </TouchableOpacity>
         </View>
 
@@ -498,12 +703,15 @@ const styles = StyleSheet.create({
     marginTop: '3%'
   },
   tab: {
-    paddingVertical: '3%',
-    paddingHorizontal: '4.5%',
+    // paddingVertical: '3%',
+    // paddingHorizontal: '4.5%',
     borderRadius: 9,
     borderWidth: 0.5,
     borderColor: 'gray',
-    marginHorizontal: '1%'
+    marginHorizontal: '1%',
+    width: '30%',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   activeTab: {
     backgroundColor: '#2CCCA6',
@@ -634,7 +842,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 12,
-    // marginRight: 10,
+    marginRight: 10,
     borderColor: '#99ABC678',
     height: hp(6.5),
     backgroundColor: '#F2F2F2',
@@ -662,6 +870,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  gettingStarted: {
+    backgroundColor: '#130160',
+    width: '90%',
+    height: hp(6.7),
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: '3%'
+  }
 });
 
 export default MyLibrary;

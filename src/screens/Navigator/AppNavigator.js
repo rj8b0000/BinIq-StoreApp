@@ -26,7 +26,7 @@ import FeedbackText from '../UserProfileScreens/FeedbackText'
 import ReferFriend from '../ReferalScreens/ReferFriend'
 import ShareReferLink from '../ReferalScreens/ShareReferLink'
 import SingleItemPage from '../MainScreens/SingleItemPage'
-import TopBinsItems from '../MainScreens/TopBinsItems'
+import ActivityFeed from '../MainScreens/ActivityFeed'
 import NearByBins from '../MainScreens/NearByBins'
 import PromoScreen from '../QuizScreens/PromoScreen'
 import SettingsScreen from '../MainScreens/SettingsScreen'
@@ -36,6 +36,12 @@ import SelectPlan from '../OnBoardingScreens/SelectPlan'
 import FreeSubscription from '../SubscriptionScreens/FreeSubscription'
 import PayWall from '../SubscriptionScreens/PayWall'
 import EditProfileScreen from '../MainScreens/EditProfileScreen'
+import MyLibrary from '../MainScreens/MyLibrary'
+import UploadScreen from '../MainScreens/UploadScreen'
+import UploadSuccess from '../MainScreens/UploadSuccess'
+import EditPhotoScreen from '../MainScreens/EditPhotoScreen'
+import PromotionScreen from '../MainScreens/PromotionScreen'
+import NewPromotionScreen from '../MainScreens/NewPromotionScreen'
 
 const AppNavigator = () => {
     const Stack = createStackNavigator();
@@ -167,8 +173,8 @@ const AppNavigator = () => {
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name='TopBinItems'
-                    component={TopBinsItems}
+                    name='ActivityFeed'
+                    component={ActivityFeed}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
@@ -214,6 +220,36 @@ const AppNavigator = () => {
                 <Stack.Screen
                     name='EditProfileScreen'
                     component={EditProfileScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='MyLibrary'
+                    component={MyLibrary}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='UploadScreen'
+                    component={UploadScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='UploadSuccess'
+                    component={UploadSuccess}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='EditPhotoScreen'
+                    component={EditPhotoScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='PromotionScreen'
+                    component={PromotionScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='NewPromotionScreen'
+                    component={NewPromotionScreen}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>

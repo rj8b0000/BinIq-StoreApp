@@ -85,7 +85,7 @@ const renderMyFavourites = ({ item }) => (
     </View>
   </View>
 );
-const TopBinsItems = () => {
+const ActivityFeed = () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = React.useState(false)
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
@@ -103,7 +103,7 @@ const TopBinsItems = () => {
             <Pressable onPress={() => navigation.goBack()}>
               <MaterialIcons name='arrow-back-ios' color={'#0D0D26'} size={25} />
             </Pressable>
-            <Text style={styles.headerText}>Top Bins Items</Text>
+            <Text style={styles.headerText}>Activity Feed</Text>
           </View>
         </View>
         <View style={styles.searchParent}>
@@ -120,16 +120,6 @@ const TopBinsItems = () => {
             <FilterIcon size={10} />
           </TouchableOpacity>
         </View>
-        <View style={{ width: '90%', alignSelf: 'center', height: hp(3), justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'row', marginVertical: '3%' }}>
-          <Text style={{ fontFamily: 'DMSans-Regular', color: '#191D23', fontSize: hp(2), marginHorizontal: '2.2%' }}>Sold Items</Text>
-          <Switch
-            trackColor={{ false: "#767577", true: "#56CD54" }}
-            thumbColor={"#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        </View>
         <ScrollView style={styles.content}>
           <TopBinItemsList />
         </ScrollView>
@@ -137,7 +127,7 @@ const TopBinsItems = () => {
     </View>
   );
 };
-export default TopBinsItems;
+export default ActivityFeed;
 
 
 const styles = StyleSheet.create({
@@ -211,6 +201,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    marginTop: '5%'
   },
   sectionTitle: {
     fontSize: 12,

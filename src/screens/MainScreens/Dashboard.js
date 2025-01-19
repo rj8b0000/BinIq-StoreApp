@@ -42,13 +42,13 @@ const Dashboard = ({ percentage = 70 }) => {
             <View style={styles.cardsContainer}>
                 {/* Upgrade Storage */}
                 <View style={styles.card}>
-                    <Text style={styles.uppercardTitle}>UPGRADE STORAGE</Text>
+                    <Text style={{ fontSize: wp(2.6), color: '#130160', fontFamily: 'Nunito-SemiBold' }}>TOTAL FOLLOWER COUNT</Text>
                     <Circle
-                        size={hp(10)}
+                        size={hp(8)}
                         progress={0.8}
                         showsText={true}
                         thickness={5}
-                        color="#3CD4B8"
+                        color="#00B813"
                         unfilledColor="#DDF4DF"
                         textStyle={styles.progressText}
                         style={styles.firstCardProgressBar}
@@ -56,37 +56,62 @@ const Dashboard = ({ percentage = 70 }) => {
                     <View style={styles.graphDetailsView}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <View style={{ width: wp(2), height: wp(2), backgroundColor: '#0049AF', borderRadius: 3 }} />
-                            <Text style={{ color: '#000', fontFamily: 'Nunito-Bold', fontSize: hp(1.1) }}> Total Scans </Text>
+                            <Text style={{ color: '#000', fontFamily: 'Nunito-Bold', fontSize: hp(0.9) }}> Total Users </Text>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <View style={{ width: wp(2), height: wp(2), backgroundColor: '#FFBB36', borderRadius: 3 }} />
-                            <Text style={{ color: '#000', fontFamily: 'Nunito-Bold', fontSize: hp(1.1) }}> Remaining Scans</Text>
+                            <Text style={{ color: '#000', fontFamily: 'Nunito-Bold', fontSize: hp(0.9) }}> Remaining</Text>
                         </View>
                     </View>
                     <View style={styles.cardText}>
-                        <Text style={{ color: '#524B6B', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.2) }}>Awesome job! Youve scanned 6,000 items already.You have 4,000 more scans available—lets find more hidden treasures!</Text>
+                        <Text style={{ color: '#524B6B', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.1) }}>Your Network of 2,900 Resellers & Owners Awaits.</Text>
                     </View>
                 </View>
 
                 {/* Unlock Education */}
+                <View style={{
+                    flex: 1,
+                    width: '33.3%',
+                    height: hp(23),
+                    backgroundColor: "#F2F5F8",
+                    borderRadius: 6,
+                    marginHorizontal: 5,
+                    shadowColor: "#000",
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 4,
+                    elevation: 2,
+                    paddingVertical: '2.5%',
+                    alignItems: 'center',
+                    // justifyContent: 'space-between',
+                    paddingHorizontal: '2%'
+                }}>
+                    <Text style={styles.uppercardTitle}>MONTHLY PROFILE VIEW</Text>
+                    <View style={{ height: hp(4) }} />
+                    <ProgressBar progress={50} />
+                    <View style={{ height: hp(4) }} />
+                    <View style={styles.card2Text}>
+                        <Text style={{ color: '#000', fontFamily: 'Nunito-SemiBold', textDecorationLine: 'underline', fontSize: hp(1.7) }}>20,000 views</Text>
+                    </View>
+                </View>
                 <View style={styles.card}>
-                    <Text style={styles.uppercardTitle}>UNLOCK EDUCATIONS</Text>
+                    <Text style={styles.uppercardTitle}>7 DAY VISITOR GROWTH</Text>
                     <Circle
                         size={hp(7)}
                         progress={0.3}
                         showsText={true}
                         thickness={4}
-                        color="#3CD4B8"
+                        color="#00B813"
                         unfilledColor="#DDF4DF"
                         textStyle={styles.progressText}
                         style={styles.firstCardProgressBar}
                     />
                     <View style={styles.card2Text}>
-                        <Text style={{ color: '#524B6B', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.2) }}>You're on a roll! You've finished 3 courses. Keep going to unlock the full library of courses and boost your skills!</Text>
+                        <Text style={{ color: '#524B6B', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.2) }}>Analyze user visits, engagement, and trends for your store over the past 7 days.</Text>
                     </View>
-                    <View style={styles.cardButton}>
+                    {/* <View style={styles.cardButton}>
                         <Text style={{ color: '#fff', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.4), textAlign: 'center' }}>KEEP GOING</Text>
-                    </View>
+                    </View> */}
                 </View>
             </View>
 
@@ -94,40 +119,29 @@ const Dashboard = ({ percentage = 70 }) => {
             <View style={styles.bottomCardsContainer}>
                 {/* Current Plan */}
                 <View style={styles.smallCard}>
-                    <Text style={styles.uppercardTitle}>CURRENT PLAN</Text>
-                    <ProgressBar progress={50} tier="Tier 1" />
+                    <Text style={{ fontSize: wp(3), color: '#130160', fontFamily: 'Nunito-SemiBold', textAlign: 'center' }}>LAST SHIPMENT</Text>
+                    <View style={{ marginTop: '20%' }}>
+                        <Text style={{ color: '#000', fontFamily: 'Nunito-SemiBold', textDecorationLine: 'underline', fontSize: hp(1.4) }}>EST. DATE</Text>
+                        <Text style={{ color: '#000', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.3) }}>31-10-2024</Text>
+                    </View>
                 </View>
 
                 {/* Education Level */}
-                <View style={styles.smallCard}>
-                    <Text style={styles.bottomcard2Title}>EDUCATION{'\n'}LEVEL</Text>
-                    <View style={styles.progressContainer}>
-                        <Svg width={size} height={size / 2 + strokeWidth / 2}>
-                            {/* Background path */}
-                            <Path
-                                d={semiCircle}
-                                fill="none"
-                                stroke="#E5E5E5"
-                                strokeWidth={strokeWidth}
-                            />
-                            {/* Progress path */}
-                            <Path
-                                d={semiCircle}
-                                fill="none"
-                                stroke="#14BA9C"
-                                strokeWidth={strokeWidth}
-                                strokeDasharray={strokeDasharray}
-                                strokeLinecap="round"
-                            />
-                        </Svg>
-                        <Text style={styles.percentageText}>{percentage}%</Text>
+                <View style={styles.middleCard}>
+                    <Text style={styles.bottomcard2Title}>VERIFIED</Text>
+                    <View style={{ height: hp(4) }} />
+                    <View style={styles.cardButton}>
+                        <Text style={{ color: '#fff', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.4), textAlign: 'center' }}>VERIFIED NOW</Text>
                     </View>
                 </View>
 
                 {/* Inventory Level */}
                 <View style={styles.smallCard}>
-                    <Text style={styles.bottomcard2Title}>INVENTORY LEVEL</Text>
-                    <ProgressBar progress={50} tier="700 Items" />
+                    <Text style={{ fontSize: wp(3), color: '#130160', fontFamily: 'Nunito-SemiBold', textAlign: 'center' }}>NEXT SHIPMENT</Text>
+                    <View style={{ marginTop: '20%' }}>
+                        <Text style={{ color: '#000', fontFamily: 'Nunito-SemiBold', textDecorationLine: 'underline', fontSize: hp(1.4) }}>EST. DATE</Text>
+                        <Text style={{ color: '#000', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.3) }}>31-10-2024</Text>
+                    </View>
                 </View>
             </View>
         </View >
@@ -172,8 +186,8 @@ const styles = StyleSheet.create({
     },
     card: {
         flex: 1,
-        width: '50%',
-        height: hp(26),
+        width: '33.3%',
+        height: hp(23),
         backgroundColor: "#F2F5F8",
         borderRadius: 6,
         marginHorizontal: 5,
@@ -186,7 +200,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     uppercardTitle: {
-        fontSize: wp(3.6),
+        fontSize: wp(3.3),
         color: '#130160',
         fontFamily: 'Nunito-SemiBold'
         // marginBottom: 8,
@@ -220,7 +234,22 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     smallCard: {
-        flex: 1,
+        // flex: 1,
+        backgroundColor: "#F2F5F8",
+        borderRadius: 6,
+        padding: 10,
+        marginHorizontal: 5,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
+        alignItems: "center",
+        width: '26%',
+        height: hp(15),
+    },
+    middleCard: {
+        // flex: 1,
         backgroundColor: "#F2F5F8",
         borderRadius: 6,
         padding: 16,
@@ -231,8 +260,8 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 2,
         alignItems: "center",
-        width: '30%',
-        height: hp(16),
+        width: '38%',
+        height: hp(15),
     },
     smallCardTitle: {
         fontSize: 14,
@@ -259,16 +288,17 @@ const styles = StyleSheet.create({
     },
     cardText: {
         padding: '1%',
-        paddingHorizontal: '5%'
+        paddingHorizontal: '3%'
     },
     card2Text: {
         paddingHorizontal: '5%'
     },
     cardButton: {
-        backgroundColor: '#130160',
-        width: '80%',
+        backgroundColor: '#00B813',
+        width: '100%',
         height: hp(3),
         margin: '10%',
+        bottom: '10%',
         borderRadius: 5,
         justifyContent: 'center'
     },
@@ -279,7 +309,7 @@ const styles = StyleSheet.create({
         marginBottom: 40,
     },
     progressContainer: {
-        position: 'absolute',
+        // position: 'absolute',
         alignItems: 'center',
         bottom: 3
     },
@@ -291,7 +321,7 @@ const styles = StyleSheet.create({
         color: '#000'
     },
     bottomcard2Title: {
-        fontSize: wp(3.1),
+        fontSize: wp(3.8),
         textAlign: 'center',
         color: '#130160',
         fontFamily: 'Nunito-SemiBold'

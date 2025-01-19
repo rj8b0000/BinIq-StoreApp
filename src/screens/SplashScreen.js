@@ -36,8 +36,10 @@ const SplashScreen = () => {
       <StatusBar translucent={true} backgroundColor={'transparent'} />
       <ImageBackground source={require('../../assets/vector_1.png')} style={styles.vector}>
         <View style={styles.logoContainer}>
-          <Splash width={wp(38)} />
-          <Text style={styles.logoText}>Where Reselling Meets Innovation</Text>
+          <View style={{ bottom: '4%' }}>
+            <Splash width={wp(38)} />
+          </View>
+          <Text style={styles.logoText}>Your one-stop solution for managing your store and driving sales</Text>
         </View>
         <City
           style={styles.cityVector}
@@ -73,7 +75,10 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: hp(2.5),
     position: 'absolute',
-    bottom: '42%'
+    bottom: '42%',
+    width: '90%',
+    textAlign: 'center',
+    marginVertical: '2%'
   },
   cityVector: {
     position: 'absolute',

@@ -4,53 +4,51 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import ObImg5 from '../../../assets/ob_img5.svg';
+import Onboarding1 from '../../../assets/onboarding_1.svg';
+import Onboarding2 from '../../../assets/onboarding_2.svg';
+import Onboarding3 from '../../../assets/onboarding_3.svg';
+import Onboarding4 from '../../../assets/onboarding_4.svg';
 
 
 const { width, height } = Dimensions.get('window');
 
 const onboardingData = [
   {
-    title: (<Text>Largest Network of{' '}<Text style={{ color: '#00B386', textDecorationLine: 'underline', }}>Amazon Bin Store</Text> in the Nation!</Text>),
-    subtitle: "Discover hidden gems near you.",
-    image: require('../../../assets/ob_img1.gif'),
-    styles: { width: wp(80), height: hp(37) }
-  },
-  {
-    title: (<Text>Largest Network of{' '}<Text style={{ color: '#00B386', textDecorationLine: 'underline', }}>Amazon Bin Store</Text> in the Nation!</Text>),
-    subtitle: "Discover hidden gems near you.",
-    image: require('../../../assets/ob_img_5.png'),
+    title: (<Text>Create and Manage{' '}<Text style={{ color: '#00B386', textDecorationLine: 'underline', }}>Promotions!</Text></Text>),
+    subtitle: (<Text style={{ color: '#524B6B', fontFamily: 'DMSans_18pt-Regular', fontSize: wp(3.8) }}>Keep your customers engaged with time-limited offers and discounts.</Text>),
+    image: <Onboarding1 />,
     styles: { width: wp(80), height: hp(37) }
   },
   {
     title: (
       <Text>
-        Select Your{' '}
-        <Text style={{ color: '#00B386', textDecorationLine: 'underline', }}>Course!</Text>
+        Discover Trusted{' '}
+        <Text style={{ color: '#00B386', textDecorationLine: 'underline', }}>Suppliers</Text>
       </Text>
     ),
-    subtitle: (<Text style={{ color: '#524B6B', fontFamily: 'DMSans_18pt-Regular', fontSize: wp(3.8) }}>Discover hidden gems near you.</Text>),
-    image: require('../../../assets/ob_img2.png'), // Add your image path
+    subtitle: (<Text style={{ color: '#524B6B', fontFamily: 'DMSans_18pt-Regular', fontSize: wp(3.8) }}>Source products quickly and easily from over 100 suppliers.</Text>),
+    image: <Onboarding2 width={'97%'} />,
     styles: { width: wp(82), height: hp(35) }
   },
   {
     title: (
       <Text>
-        Streamline your{' '}
-        <Text style={{ color: '#00B386', textDecorationLine: 'underline', }}>Process!</Text>
+        Showcase{' '}
+        <Text style={{ color: '#00B386', textDecorationLine: 'underline', }}>Your Store!</Text>
       </Text>
     ),
-    subtitle: (<Text style={{ color: '#524B6B', fontFamily: 'DMSans_18pt-Regular', fontSize: wp(3.8) }}>Discover hidden gems near you.</Text>),
-    image: require('../../../assets/ob_img3.png'), // Add your image path
+    subtitle: (<Text style={{ color: '#524B6B', fontFamily: 'DMSans_18pt-Regular', fontSize: wp(3.8) }}>Effortlessly scan items, and list more products while tracking live prices, item details, and more. </Text>),
+    image: <Onboarding3 width={'99%'} />, // Add your image path
     styles: { width: wp(80), height: hp(35) }
   },
   {
     title: (
       <Text>
-        Secure your <Text style={{ color: '#00B386', textDecorationLine: 'underline', }}>Scans!</Text>
+        Nationwide <Text style={{ color: '#00B386', textDecorationLine: 'underline', }}>Bin Shopper & Reseller Network</Text>
       </Text>
     ),
-    subtitle: (<Text style={{ color: '#524B6B', fontFamily: 'DMSans_18pt-Regular', fontSize: wp(3.8) }}>Discover hidden gems near you.</Text>),
-    image: require('../../../assets/ob_img4.png'), // Add your image path
+    subtitle: (<Text style={{ color: '#524B6B', fontFamily: 'DMSans_18pt-Regular', fontSize: wp(3.8) }}>Upload photos, videos, and more to highlight your trending products and promotions.</Text>),
+    image: <Onboarding4 width={'95%'} />, // Add your image path
     styles: { width: wp(90), height: hp(37) }
   },
 ];
@@ -61,7 +59,7 @@ const OnboardingScreen = ({ navigation }) => {
 
   const renderItem = ({ item }) => (
     <View style={{ ...styles.slide }}>
-      <Image source={item.image} style={{ ...item.styles }} resizeMode="contain" animated={true} />
+      {item.image}
       <View style={{ width: '90%' }}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.subtitle}>{item.subtitle}</Text>
@@ -130,7 +128,7 @@ const OnboardingScreen = ({ navigation }) => {
           </TouchableOpacity>
         )}
         {activeIndex === onboardingData.length - 1 && (
-          <TouchableOpacity style={styles.gettingStarted} onPress={() => navigation.navigate('SelectPlan')}>
+          <TouchableOpacity style={styles.gettingStarted} onPress={() => navigation.navigate('SelectUserRole')}>
             <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#fff', fontSize: hp(2.5) }}>Get started</Text>
           </TouchableOpacity>
         )}

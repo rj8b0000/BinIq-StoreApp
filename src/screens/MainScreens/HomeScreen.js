@@ -21,6 +21,8 @@ import SettingsIcon from '../../../assets/SettingsIcon.svg';
 import Dashboard from './Dashboard';
 import Dashboard2 from './Dashboard2';
 import Dashboard3 from './Dashboard3';
+import UploadPlus from '../../../assets/upload_plus.svg'
+import GiftIcon from '../../../assets/promo_Date.svg';
 
 const { width, height } = Dimensions.get('window');
 const HomeScreen = ({ openDrawer }) => {
@@ -95,61 +97,84 @@ const HomeScreen = ({ openDrawer }) => {
   const products = [
     {
       id: 1,
-      image: require('../../../assets/colgate.png'),
+      image: require('../../../assets/gray_img.png'),
       title: 'COLGATE',
       description: 'Advance whitening toothpaste 160g',
       price: '$7 - 27'
     },
     {
       id: 2,
-      image: require('../../../assets/darlie.png'),
+      image: require('../../../assets/gray_img.png'),
       title: 'DARLIE',
       description: 'All shiny white toothpaste 140g',
       price: '$24.3 - 35.8'
     },
     {
       id: 3,
-      image: require('../../../assets/colgate.png'),
+      image: require('../../../assets/gray_img.png'),
       title: 'COLGATE',
       description: 'Advance whitening toothpaste 160g',
       price: '$7 - 27'
     },
     {
       id: 4,
-      image: require('../../../assets/darlie.png'),
+      image: require('../../../assets/gray_img.png'),
       title: 'DARLIE',
       description: 'All shiny white toothpaste 140g',
       price: '$24.3 - 35.8'
     },
     {
       id: 5,
-      image: require('../../../assets/colgate.png'),
+      image: require('../../../assets/gray_img.png'),
       title: 'COLGATE',
       description: 'Advance whitening toothpaste 160g',
       price: '$7 - 27'
     },
     {
       id: 6,
-      image: require('../../../assets/darlie.png'),
+      image: require('../../../assets/gray_img.png'),
       title: 'DARLIE',
       description: 'All shiny white toothpaste 140g',
       price: '$24.3 - 35.8'
     },
     {
       id: 7,
-      image: require('../../../assets/colgate.png'),
+      image: require('../../../assets/gray_img.png'),
       title: 'COLGATE',
       description: 'Advance whitening toothpaste 160g',
       price: '$7 - 27'
     },
     {
       id: 8,
-      image: require('../../../assets/darlie.png'),
+      image: require('../../../assets/gray_img.png'),
       title: 'DARLIE',
       description: 'All shiny white toothpaste 140g',
       price: '$24.3 - 35.8'
     }
 
+  ]
+  const promotions = [
+    {
+      id: 1,
+      image: require('../../../assets/promotions.png'),
+      title: 'Black Friday Sale',
+      shortDescription: 'Short Description...',
+      price: '$7 - 27'
+    },
+    {
+      id: 2,
+      image: require('../../../assets/promotions.png'),
+      title: 'Black Friday Sale',
+      shortDescription: 'Short Description..',
+      price: '$24.3 - 35.8'
+    },
+    {
+      id: 3,
+      image: require('../../../assets/promotions.png'),
+      title: 'Black Friday Sale',
+      shortDescription: 'Short Description..',
+      price: '$7 - 27'
+    },
   ]
   const carouselImages = [
     {
@@ -251,36 +276,6 @@ const HomeScreen = ({ openDrawer }) => {
       totalDiscount: '60% off'
     }
   ]
-  const resellerIQPortal = [
-    {
-      id: 1,
-      image: require('../../../assets/reseller_training.png'),
-      miniHeader: 'Buy Pallets',
-      title: 'Buy Pallets',
-      tutDetails: 'Full Video • With PDF'
-    },
-    {
-      id: 2,
-      image: require('../../../assets/reseller_training.png'),
-      miniHeader: 'Buy Pallets',
-      title: 'Buy Pallets',
-      tutDetails: 'Full Video • With PDF'
-    },
-    {
-      id: 3,
-      image: require('../../../assets/reseller_training.png'),
-      miniHeader: 'Buy Pallets',
-      title: 'Buy Pallets',
-      tutDetails: 'Full Video • With PDF'
-    },
-    {
-      id: 4,
-      image: require('../../../assets/reseller_training.png'),
-      miniHeader: 'Buy Pallets',
-      title: 'Buy Pallets',
-      tutDetails: 'Full Video • With PDF'
-    }
-  ]
   const renderCarouselItem = ({ item, index }) => {
     if (item.isMap) {
       return (
@@ -327,7 +322,7 @@ const HomeScreen = ({ openDrawer }) => {
     </Pressable>
   );
   const renderProductsItem = ({ item }) => (
-    <Pressable style={{ width: wp(51), height: hp(23), marginVertical: '5%' }} onPress={() => navigation.navigate('TopBinItems')}>
+    <Pressable style={{ width: wp(51), height: hp(23), marginVertical: '5%' }} onPress={() => navigation.navigate('ActivityFeed')}>
       <View style={{ width: wp(47), height: hp(21), borderRadius: 10, elevation: 2, backgroundColor: '#fff', paddingLeft: '1%' }}>
         <Image source={item.image} style={{ width: wp(46), height: hp(12) }} />
         <Ionicons name='heart' size={hp(3)} color={'#EE2525'} style={{ position: 'absolute', right: '2%', top: '2%' }} />
@@ -341,11 +336,26 @@ const HomeScreen = ({ openDrawer }) => {
       </View>
     </Pressable>
   );
+  const renderPromotionItem = ({ item }) => (
+    <Pressable style={{ width: wp(31.5), height: hp(23), marginVertical: '5%' }} onPress={() => navigation.navigate('ActivityFeed')}>
+      <View style={{ width: wp(29), height: hp(23), borderRadius: 10, elevation: 4, backgroundColor: '#fff', paddingLeft: '1%' }}>
+        <Image source={item.image} style={{ width: wp(26), height: hp(12) }} />
+        <View style={{ marginTop: '10%', marginHorizontal: '3%', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View>
+            <Text style={{ fontFamily: 'DMSans-Bold', color: '#000', fontSize: hp(1.3) }}>{item.title}</Text>
+            <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(1.3) }}>{item.shortDescription}</Text>
+            <Text style={{ fontFamily: 'Nunito-Bold', color: '#14BA9C', fontSize: hp(1.5), marginTop: '4%' }}>Active</Text>
+            <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(1.4) }}><GiftIcon /> Jun20 to July20</Text>
+          </View>
+        </View>
+      </View>
+    </Pressable>
+  );
   const renderMyFavourites = ({ item }) => (
     <Pressable style={{ width: wp(45), height: hp(26) }}>
       <View style={{ width: wp(42), height: hp(25), borderRadius: 5, elevation: 2, backgroundColor: '#fff' }}>
         <Image source={item.image} style={{ width: wp(42), height: hp(13), borderRadius: 5 }} />
-        <Ionicons name='heart' size={hp(3)} color={'#EE2525'} style={{ position: 'absolute', right: '2%', top: '2%' }} />
+        {/* <Ionicons name='heart' size={hp(3)} color={'#EE2525'} style={{ position: 'absolute', right: '2%', top: '2%' }} /> */}
         <View style={{ paddingHorizontal: '2.5%' }}>
           <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(1.5), margin: '0.5%', }}>{item.description}</Text>
         </View>
@@ -401,29 +411,25 @@ const HomeScreen = ({ openDrawer }) => {
             <View style={{ width: '28%', height: '100%', justifyContent: 'center', alignItems: 'flex-start' }}>
               <BinIQIcon />
             </View>
-            <View style={{ width: '45%', height: '100%', flexDirection: 'row', alignItems: 'center', paddingRight: '4%' }}>
+            {/* <View style={{ width: '45%', height: '100%', flexDirection: 'row', alignItems: 'center', paddingRight: '4%' }}>
               <Pressable onPress={() => navigation.navigate('ReferFriend')}>
                 <GetButton height={hp(3.5)} />
-              </Pressable>
-              <Pressable style={{ width: '23%', height: '100%', justifyContent: 'center', alignItems: 'flex-end', paddingRight: '2%' }} onPress={() => navigation.navigate('Notifications')}>
-                <Notification height={hp(4)} />
-              </Pressable>
-            </View>
+              </Pressable> */}
+            <Pressable style={{ width: '23%', height: '100%', justifyContent: 'center', alignItems: 'flex-end', paddingRight: '2%' }} onPress={() => navigation.navigate('Notifications')}>
+              <Notification height={hp(4)} />
+            </Pressable>
+            {/* </View> */}
           </View>
           <View style={styles.container}>
             <Pressable style={styles.searchContainer} onPress={() => navigation.navigate('SearchScreen')}>
               <View style={styles.cameraButton}>
-                <CameraIcon />
+                <UploadPlus />
               </View>
-              <Text style={styles.input}>search for anything</Text>
+              <Text style={styles.input}>UPLOAD</Text>
               <View style={styles.searchButton}>
                 <SearchIcon />
               </View>
             </Pressable>
-            <TouchableOpacity style={styles.menuButton} onPress={openDrawer}>
-              {/* <FontAwesome6 name='bars-staggered' size={18} color={'#fff'} /> */}
-              <SettingsIcon />
-            </TouchableOpacity>
           </View>
         </View>
         <Carousel
@@ -469,29 +475,11 @@ const HomeScreen = ({ openDrawer }) => {
         } */}
         {pagination()}
       </ImageBackground>
-      {/* TOP BINS NEAR ME  */}
-      <View style={{ flex: 1, width: '100%', height: hp(35), marginTop: '4%' }}>
-        <View style={{ marginTop: '7%', paddingHorizontal: '5%' }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: '2.5%' }}>
-            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.3), color: '#000000' }}>TOP BINS NEAR ME</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('TopBinsNearMe')}>
-              <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text>
-            </TouchableOpacity>
-          </View>
-          <FlatList
-            data={topBins}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
-      </View>
       {/* PRODUCTS  */}
-      <View style={{ flex: 1, width: '100%', height: hp(30) }}>
+      <View style={{ flex: 1, width: '100%', height: hp(56), marginTop: '4%' }}>
         <View style={{ marginVertical: '0%', paddingHorizontal: '5%' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: '2.5%' }}>
-            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.3), color: '#000000' }}>TOP BIN ITEM</Text>
+            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.3), color: '#000000' }}>ACTIVITY FEED</Text>
             <TouchableOpacity onPress={() => navigation.navigate('TopBinItems')}>
               <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text>
             </TouchableOpacity>
@@ -503,16 +491,47 @@ const HomeScreen = ({ openDrawer }) => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           />
+          <FlatList
+            data={products}
+            renderItem={renderProductsItem}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      </View>
+      {/* PROMOTIONS  */}
+      <View style={{ flex: 1, width: '100%', height: hp(30) }}>
+        <View style={{ marginVertical: '0%', paddingHorizontal: '5%' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: '2.5%' }}>
+            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.3), color: '#000000' }}>PROMOTIONS</Text>
+          </View>
+          <FlatList
+            data={promotions}
+            renderItem={renderPromotionItem}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
         </View>
       </View>
       {/* MY FAVOURITES  */}
-      <View style={{ flex: 1, width: '100%', height: hp(35) }}>
+      <View style={{ flex: 1, width: '100%', height: hp(63) }}>
         <View style={{ marginVertical: '0%', paddingHorizontal: '3%' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: '2.5%' }}>
-            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.3), color: '#000000' }}>MY FAVOURITES</Text>
+            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.4), color: '#000000' }}>Trending Products</Text>
             <TouchableOpacity onPress={() => navigation.navigate('FavouritesScreen')}>
               <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text>
             </TouchableOpacity>
+          </View>
+          <View style={{ marginVertical: '3%' }}>
+            <FlatList
+              data={myFavourites}
+              renderItem={renderMyFavourites}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            />
           </View>
           <View style={{ marginVertical: '3%' }}>
             <FlatList
@@ -529,21 +548,14 @@ const HomeScreen = ({ openDrawer }) => {
       <View style={{ flex: 1, width: '100%', height: hp(42) }}>
         <View style={{ marginVertical: '0%', paddingHorizontal: '3%' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: '2.5%' }}>
-            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.3), color: '#000000' }}>RESELLER IQ PORTAL</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('IQPortal')}>
+            <Text style={{ fontFamily: 'Nunito-Bold', fontSize: hp(2.3), color: '#000000' }}>IQ PORTAL</Text>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('IQPortal')}>
               <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={{ marginVertical: '4%', flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-            {/* <FlatList
-              data={resellerIQPortal}
-              renderItem={renderResellerPortal}
-              keyExtractor={(item) => item.id.toString()}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            /> */}
-            <TouchableOpacity style={{ width: wp(45), height: hp(24) }}>
-              <Pressable style={{ width: wp(45), height: hp(22), borderRadius: 5, elevation: 2, backgroundColor: '#fff', paddingLeft: '1%' }}>
+            <Pressable style={{ width: wp(45), height: hp(24) }} onPress={() => navigation.navigate('IQPortal')}>
+              <View style={{ width: wp(45), height: hp(22), borderRadius: 5, elevation: 2, backgroundColor: '#fff', paddingLeft: '1%' }}>
                 <Image source={require('../../../assets/reseller_training.png')} style={{ width: wp(45), height: hp(11), borderRadius: 5 }} />
                 <View style={{ margin: '3%', flexDirection: 'row', justifyContent: 'space-between' }}>
                   <View>
@@ -552,20 +564,19 @@ const HomeScreen = ({ openDrawer }) => {
                     <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#14BA9C', fontSize: hp(1.5), marginTop: '5%' }}>{'Full Video • With PDF'}</Text>
                   </View>
                 </View>
-              </Pressable>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ width: wp(45), height: hp(24) }} onPress={() => navigation.navigate('IQPortal')}>
-              <Pressable style={{ width: wp(45), height: hp(22), borderRadius: 5, elevation: 2, backgroundColor: '#fff', paddingLeft: '1%' }}>
+              </View>
+            </Pressable>
+            <Pressable style={{ width: wp(45), height: hp(24) }} onPress={() => navigation.navigate('IQPortal')}>
+              <View style={{ width: wp(45), height: hp(22), borderRadius: 5, elevation: 2, backgroundColor: '#fff', paddingLeft: '1%' }}>
                 <Image source={require('../../../assets/reseller_training.png')} style={{ width: wp(45), height: hp(11), borderRadius: 5 }} />
                 <View style={{ margin: '3%', flexDirection: 'row', justifyContent: 'space-between' }}>
                   <View>
-                    <Text style={{ fontFamily: 'Nunito-ExtraBold', color: '#0049AF', fontSize: hp(1.7) }}>{'How to start a Bin Store'}</Text>
-                    <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(2.2), marginVertical: '1%' }}>{'Reseller Training'}</Text>
-                    <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#14BA9C', fontSize: hp(1.5), marginTop: '5%' }}>{'Full Video • With PDF'}</Text>
+                    <Text style={{ fontFamily: 'Nunito-ExtraBold', color: '#0049AF', fontSize: hp(1.4) }}>{'Free Direct Contract Holder Training & Supplier List'}</Text>
+                    <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(2.2), marginVertical: '1%' }}>{'Supplier Connect & Training'}</Text>
                   </View>
                 </View>
-              </Pressable>
-            </TouchableOpacity>
+              </View>
+            </Pressable>
           </View>
         </View>
       </View>
@@ -603,10 +614,11 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: hp(2.2),
+    fontSize: hp(2),
     fontFamily: 'Nunito-Regular',
     paddingVertical: 8,
-    color: '#999'
+    color: '#000',
+    textAlign: 'center'
   },
   searchButton: {
     padding: 10,

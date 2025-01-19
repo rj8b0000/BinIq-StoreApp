@@ -22,6 +22,7 @@ import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import EditImage from '../../../assets/EditImage.svg'
 import DropDownPicker from "react-native-dropdown-picker"
 import { CreditCardInput } from "react-native-creditcard"
+import Upload_Photo_Icon from '../../../assets/Upload_Photo_Icon.svg';
 
 
 const { width, height } = Dimensions.get('window')
@@ -35,6 +36,8 @@ export default function EditProfileScreen({ openDrawer }) {
     const [value, setValue] = useState('Madhya Pradesh'); // Default selected value
     const [valueMonth, setValueMonth] = useState('January'); // Default selected value
     const [valueYear, setValueYear] = useState('1999'); // Default selected value
+    const [valueCity, setValueCity] = useState('Ahmedabad'); // Default selected value
+    const [valueState, setValueState] = useState('Gujarat');
     const [items, setItems] = useState([
         { label: 'Madhya Pradesh', value: 'Madhya Pradesh' },
         { label: 'Maharashtra', value: 'Maharashtra' },
@@ -54,6 +57,9 @@ export default function EditProfileScreen({ openDrawer }) {
         { label: "October", value: "October" },
         { label: "November", value: "November" },
         { label: "December", value: "December" },
+    ]);
+    const [city, setCity] = useState([])
+    const [state, setState] = useState([
     ]);
     const [year, setYear] = useState([])
     useEffect(() => {
@@ -88,34 +94,94 @@ export default function EditProfileScreen({ openDrawer }) {
                 </View>
                 <View style={{ padding: '5%' }}>
                     <View style={{ marginBottom: '5%' }}>
-                        <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: wp(5), color: '#000000' }}>Personal Details</Text>
+                        <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: wp(5), color: '#000000' }}>Store Details</Text>
                     </View>
-                    <Text style={styles.label}>Email</Text>
-                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                    <Text style={styles.label}>Store Name</Text>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '3%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
                         <TextInput
-                            placeholder='John Doe'
-                            value='Jone Doe'
-                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholder='Hidden Finds'
+                            value='Hidden Finds'
+                            style={{ fontFamily: 'Nunito-Bold', color: '#000', fontSize: hp(2) }}
                             placeholderTextColor={'gray'}
                         />
                     </View>
-                    <Text style={styles.label}>Password</Text>
-                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                    <Text style={styles.label}>Address</Text>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '3%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
                         <TextInput
-                            placeholder='johndoe@gmail.com'
-                            value='************'
-                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholder=' Enter your complete store address'
+                            value=' Enter your complete store address'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2) }}
                             placeholderTextColor={'gray'}
                         />
                     </View>
-                    <TouchableOpacity style={{ marginTop: '2%', marginBottom: '3.3%' }} onPress={() => navigation.navigate('ChangePassword')}>
-                        <Text style={{ color: '#14BA9C', textAlign: 'right', fontFamily: 'DMSans-Regular', textDecorationLine: 'underline' }}>Change Password</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.label}>Phone Number</Text>
-                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: '2%', }}>
+                        <View style={styles.monthDropContainer}>
+                            <DropDownPicker
+                                open={openMonth}
+                                value={'City'}
+                                items={month}
+                                setOpen={setOpenMonth}
+                                setValue={setValueCity}
+                                setItems={setCity}
+                                placeholder="City"
+                                style={styles.dropdown}
+                                textStyle={styles.dropdownText}
+                                dropDownContainerStyle={[styles.dropdownContainerStyle, { maxHeight: 'auto' }]}
+                                ArrowDownIconComponent={() => <SimpleLineIcons name="arrow-down" size={20} color="#000" />}
+                            />
+                        </View>
+                        <View style={styles.monthDropContainer}>
+                            <DropDownPicker
+                                open={openYear}
+                                value={'State'}
+                                items={year}
+                                setOpen={setOpenYear}
+                                setValue={setValueState}
+                                setItems={setState}
+                                placeholder="State"
+                                style={styles.dropdown}
+                                textStyle={styles.dropdownText}
+                                dropDownContainerStyle={[styles.dropdownContainerStyle, { maxHeight: 'auto' }]}
+                                ArrowDownIconComponent={() => <SimpleLineIcons name="arrow-down" size={20} color="#000" />}
+                            />
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: '2%', }}>
+                        <View style={styles.monthDropContainer}>
+                            <DropDownPicker
+                                open={openMonth}
+                                value={'Postal/Zip code'}
+                                items={month}
+                                setOpen={setOpenMonth}
+                                setValue={setValueCity}
+                                setItems={setCity}
+                                placeholder="Zip Code"
+                                style={styles.dropdown}
+                                textStyle={styles.dropdownText}
+                                dropDownContainerStyle={[styles.dropdownContainerStyle, { maxHeight: 'auto' }]}
+                                ArrowDownIconComponent={() => <SimpleLineIcons name="arrow-down" size={20} color="#000" />}
+                            />
+                        </View>
+                        <View style={styles.monthDropContainer}>
+                            <DropDownPicker
+                                open={openYear}
+                                value={'Country'}
+                                items={year}
+                                setOpen={setOpenYear}
+                                setValue={setValueState}
+                                setItems={setState}
+                                placeholder="Country"
+                                style={styles.dropdown}
+                                textStyle={styles.dropdownText}
+                                dropDownContainerStyle={[styles.dropdownContainerStyle, { maxHeight: 'auto' }]}
+                                ArrowDownIconComponent={() => <SimpleLineIcons name="arrow-down" size={20} color="#000" />}
+                            />
+                        </View>
+                    </View>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '3%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
                         <TextInput
                             placeholder='johndoe@gmail.com'
-                            value='+97 23342234244'
+                            value='Google Maps Links'
                             style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
                             placeholderTextColor={'gray'}
                         />
@@ -126,90 +192,17 @@ export default function EditProfileScreen({ openDrawer }) {
                     <View style={{ marginBottom: '5%' }}>
                         <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: wp(5), color: '#000000' }}>Business Address Details</Text>
                     </View>
-                    <Text style={styles.label}>Pincode</Text>
-                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
-                        <TextInput
-                            placeholder='John Doe'
-                            value='450116'
-                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
-                            placeholderTextColor={'gray'}
-                        />
-                    </View>
-                    <Text style={styles.label}>Password</Text>
-                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
-                        <TextInput
-                            placeholder='johndoe@gmail.com'
-                            value="216 St Paul's Rd"
-                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
-                            placeholderTextColor={'gray'}
-                        />
-                    </View>
-                    <Text style={styles.label}>City</Text>
-                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
-                        <TextInput
-                            value='Indore'
-                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
-                            placeholderTextColor={'gray'}
-                        />
-                    </View>
-                    <Text style={styles.label}>State</Text>
-                    <View style={styles.dropdownContainer}>
-                        <DropDownPicker
-                            open={open}
-                            value={value}
-                            items={items}
-                            setOpen={setOpen}
-                            setValue={setValue}
-                            setItems={setItems}
-                            placeholder="Select a state"
-                            style={styles.dropdown}
-                            textStyle={styles.dropdownText}
-                            dropDownContainerStyle={styles.dropdownContainerStyle}
-                            ArrowDownIconComponent={() => <SimpleLineIcons name="arrow-down" size={20} color="#000" />}
-                        />
-                    </View>
-                    <Text style={styles.label}>Country</Text>
-                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
-                        <TextInput
-                            value='India'
-                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
-                            placeholderTextColor={'gray'}
-                        />
-                    </View>
-                </View>
-                <View style={{ borderWidth: 0.3, borderColor: '#C4C4C4', width: wp(90), alignSelf: 'center', marginTop: '6%' }} />
-                <View style={{ padding: '5%' }}>
-                    <View style={{ marginBottom: '5%' }}>
-                        <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: wp(5), color: '#000000' }}>Card Information</Text>
-                    </View>
-                    <Text style={styles.label}>Card Number</Text>
-                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
-                        <TextInput
-                            placeholder='John Doe'
-                            value='204356XXXXXXX'
-                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
-                            placeholderTextColor={'gray'}
-                        />
-                    </View>
-                    <Text style={styles.label}>Card Holder’s Name</Text>
-                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
-                        <TextInput
-                            placeholder='johndoe@gmail.com'
-                            value='Muskan Rathore'
-                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
-                            placeholderTextColor={'gray'}
-                        />
-                    </View>
+
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: '2%', }}>
                         <View style={styles.monthDropContainer}>
                             <DropDownPicker
                                 open={openMonth}
-                                value={valueMonth}
+                                // value={valueMonth}
                                 items={month}
                                 setOpen={setOpenMonth}
                                 setValue={setValueMonth}
                                 setItems={setMonth}
-                                placeholder="Month"
+                                placeholder="Day's"
                                 style={styles.dropdown}
                                 textStyle={styles.dropdownText}
                                 dropDownContainerStyle={[styles.dropdownContainerStyle, { maxHeight: 'auto' }]}
@@ -224,7 +217,7 @@ export default function EditProfileScreen({ openDrawer }) {
                                 setOpen={setOpenYear}
                                 setValue={setValueYear}
                                 setItems={setYear}
-                                placeholder="Year"
+                                placeholder="Timing"
                                 style={styles.dropdown}
                                 textStyle={styles.dropdownText}
                                 dropDownContainerStyle={[styles.dropdownContainerStyle, { maxHeight: 'auto' }]}
@@ -232,18 +225,153 @@ export default function EditProfileScreen({ openDrawer }) {
                             />
                         </View>
                     </View>
-                    <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Phone Number</Text>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
                         <TextInput
-                            placeholder="CVC"
-                            keyboardType="numeric"
-                            maxLength={4} // Restrict input to 3 digits
-                            style={styles.input}
-                            placeholderTextColor="gray"
+                            placeholder='johndoe@gmail.com'
+                            value='+97 23342234244'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
+                        />
+                    </View>
+                    <Text style={styles.label}>Store Email</Text>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                        <TextInput
+                            placeholder='johndoe@gmail.com'
+                            value='Enter your store email'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
                         />
                     </View>
                 </View>
-                <TouchableOpacity style={styles.gettingStarted} onPress={() => navigation.navigate('QuizScreen')}>
-                    <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#fff', fontSize: hp(2.5) }}>Save Profile</Text>
+                <View style={{ borderWidth: 0.3, borderColor: '#C4C4C4', width: wp(90), alignSelf: 'center', marginTop: '6%' }} />
+                <View style={{ padding: '5%' }}>
+                    <View style={{ marginBottom: '5%' }}>
+                        <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: wp(5), color: '#000000' }}>Social Media Links</Text>
+                    </View>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                        <TextInput
+                            placeholder='John Doe'
+                            value=' Facebook link'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
+                        />
+                    </View>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                        <TextInput
+                            placeholder='johndoe@gmail.com'
+                            value='Instagram Link'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
+                        />
+                    </View>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                        <TextInput
+                            placeholder='johndoe@gmail.com'
+                            value='Twitter Link'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
+                        />
+                    </View>
+                </View>
+                <View style={{ borderWidth: 0.3, borderColor: '#C4C4C4', width: wp(90), alignSelf: 'center', marginTop: '6%' }} />
+                <View style={{ padding: '5%' }}>
+                    <View style={{ marginBottom: '5%' }}>
+                        <Text style={{ fontFamily: 'Nunito-SemiBold', fontSize: wp(4.5), color: '#000000' }}>Promotions Section (Add new promotion)</Text>
+                    </View>
+                    <Text style={styles.label}>Title</Text>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                        <TextInput
+                            placeholder='John Doe'
+                            value='Buy One, Get One Free'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
+                        />
+                    </View>
+                    <Text style={styles.label}>Description</Text>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                        <TextInput
+                            placeholder='johndoe@gmail.com'
+                            value='Free shipping on orders over $50'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
+                        />
+                    </View>
+                    <Text style={styles.label}>Discount Type</Text>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                        <TextInput
+                            placeholder='johndoe@gmail.com'
+                            value=' buy-one-get-one (BOGO) deal'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
+                        />
+                    </View>
+                    <Text style={styles.label}>Minimum Purchase Requirements</Text>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                        <TextInput
+                            placeholder='johndoe@gmail.com'
+                            value='$50 to $300'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
+                        />
+                    </View>
+                    <Text style={styles.label}>Applicable Products</Text>
+                    <View style={{ backgroundColor: '#fff', width: '100%', height: hp(6.5), alignSelf: 'center', borderRadius: 8, marginVertical: '2%', paddingHorizontal: '5%', justifyContent: 'center', borderWidth: 0.4, borderColor: '#524B6B' }}>
+                        <TextInput
+                            placeholder='johndoe@gmail.com'
+                            value='$50 to $300'
+                            style={{ fontFamily: 'Nunito-Regular', color: '#000', fontSize: hp(2.2) }}
+                            placeholderTextColor={'gray'}
+                        />
+                    </View>
+                    <Text style={styles.label}>Specify Promotion Dates</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: '2%', }}>
+                        <View style={styles.monthDropContainer}>
+                            <DropDownPicker
+                                open={openMonth}
+                                // value={valueMonth}
+                                items={month}
+                                setOpen={setOpenMonth}
+                                setValue={setValueMonth}
+                                setItems={setMonth}
+                                placeholder="Start Date"
+                                style={styles.dropdown}
+                                textStyle={styles.dropdownText}
+                                dropDownContainerStyle={[styles.dropdownContainerStyle, { maxHeight: 'auto' }]}
+                                ArrowDownIconComponent={() => <SimpleLineIcons name="arrow-down" size={20} color="#000" />}
+                            />
+                        </View>
+                        <View style={styles.monthDropContainer}>
+                            <DropDownPicker
+                                open={openYear}
+                                // value={valueYear}
+                                items={year}
+                                setOpen={setOpenYear}
+                                setValue={setValueYear}
+                                setItems={setYear}
+                                placeholder="End Date"
+                                style={styles.dropdown}
+                                textStyle={styles.dropdownText}
+                                dropDownContainerStyle={[styles.dropdownContainerStyle, { maxHeight: 'auto' }]}
+                                ArrowDownIconComponent={() => <SimpleLineIcons name="arrow-down" size={20} color="#000" />}
+                            />
+                        </View>
+                    </View>
+                    <Text style={styles.label}>Banner</Text>
+                    <View style={styles.bannerContainer}>
+                        <Upload_Photo_Icon width={'50%'} height={'50%'} />
+                    </View>
+                    <View style={{ width: '100%', marginTop: '5%', height: hp(7), alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <View style={styles.nearestStoreBtn2}>
+                            <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(1.9) }}>Delete Promotion</Text>
+                        </View>
+                        <View style={styles.nearestStore}>
+                            <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(1.9) }}>Create Promotion</Text>
+                        </View>
+                    </View>
+                </View>
+                <TouchableOpacity style={styles.gettingStarted}>
+                    <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#fff', fontSize: hp(2.5) }}>Save</Text>
                 </TouchableOpacity>
             </ImageBackground>
             <View style={{ height: hp(7) }} />
@@ -421,6 +549,46 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center'
-    }
+        alignSelf: 'center',
+        marginVertical: '5%'
+    },
+    bannerContainer: {
+        backgroundColor: '#fff',
+        width: '100%',
+        height: hp(23),
+        borderRadius: 8,
+        marginVertical: '2%',
+        // paddingHorizontal: '5%',
+        borderWidth: 0.4,
+        borderColor: '#524B6B',
+        alignItems: 'center',
+        padding: '2%',
+        justifyContent: 'center'
+    },
+    nearestStore: {
+        width: '48%',
+        borderWidth: 0.4,
+        borderColor: '#828282',
+        height: '90%',
+        borderRadius: 7,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // paddingHorizontal: '9%',
+        borderColor: 'red',
+        borderWidth: 0.8,
+    },
+    nearestStoreBtn2: {
+        width: '48%',
+        borderWidth: 0.4,
+        // borderColor: '#828282',
+        height: '90%',
+        borderRadius: 7,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // paddingHorizontal: '5%',
+        borderColor: 'gray',
+        borderWidth: 0.8,
+    },
 })

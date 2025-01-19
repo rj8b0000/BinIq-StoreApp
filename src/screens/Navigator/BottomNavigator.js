@@ -16,6 +16,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import HomeScreenMain from '../MainScreens/HomeScreenMain';
 import CameraScan from '../../../assets/CameraScan.svg';
+import PlusIcon from '../../../assets/plus_icon.svg';
 import Home from '../../../assets/Home.svg';
 import HomeFocused from '../../../assets/HomeFocused.svg';
 import Heart from '../../../assets/Heart.svg';
@@ -25,6 +26,8 @@ import LibraryFocused from '../../../assets/LibraryFocused.svg';
 import User from '../../../assets/User.svg';
 import UserFocused from '../../../assets/user_focus.svg'
 import UserProfileScreen from '../MainScreens/UserProfileScreen';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
+import EditProfileScreen from '../MainScreens/EditProfileScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -78,7 +81,7 @@ const BottomNavigator = () => {
                         }
                     })}
                 />
-                <Tab.Screen
+                {/* <Tab.Screen
                     name='FavouritesScreen'
                     component={FavouratiesScreen}
                     options={{
@@ -101,22 +104,43 @@ const BottomNavigator = () => {
                                 useNativeDriver: true
                             }).start();
                         }
-                    })} />
+                    })} /> */}
                 <Tab.Screen
                     name='MapScreen'
-                    component={MapScreen}
+                    component={() => null}
+                    // options={{
+                    //     tabBarShowLabel: false,
+                    //     tabBarIcon: (props) => (
+                    //         <TouchableOpacity {...props} onPress={() => launchCamera()}>
+                    //             <View style={{ width: 65, height: 65, backgroundColor: '#14BA9C', borderRadius: 50, justifyContent: 'center', alignItems: 'center', marginBottom: 50 }}>
+                    //                 <PlusIcon size={hp(4.2)} color={'white'} />
+                    //             </View>
+                    //         </TouchableOpacity>
+                    //     )
+                    // }}
                     options={{
                         tabBarShowLabel: false,
-                        tabBarIcon: ({ focused }) => (
-                            <TouchableOpacity>
-                                <View style={{ width: 65, height: 65, backgroundColor: '#14BA9C', borderRadius: 50, justifyContent: 'center', alignItems: 'center', marginBottom: 50 }}>
-                                    <CameraScan size={hp(4.2)} color={'white'} />
+                        tabBarButton: (props) => (
+                            <TouchableOpacity
+                                {...props}
+                                onPress={() => launchCamera()} // Open camera when the tab is clicked
+                            >
+                                <View style={{
+                                    width: 65,
+                                    height: 65,
+                                    backgroundColor: '#14BA9C',
+                                    borderRadius: 50,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginBottom: 30
+                                }}>
+                                    <PlusIcon size={hp(4.2)} color={'white'} />
                                 </View>
                             </TouchableOpacity>
                         )
                     }}
                 />
-                <Tab.Screen
+                {/* <Tab.Screen
                     name='MyLibrary'
                     component={MyLibrary}
                     options={{
@@ -138,10 +162,10 @@ const BottomNavigator = () => {
                                 useNativeDriver: true
                             }).start();
                         }
-                    })} />
+                    })} /> */}
                 <Tab.Screen
-                    name='UserProfileScreen'
-                    component={UserProfileScreen}
+                    name='EditProfileScreen'
+                    component={EditProfileScreen}
                     options={{
                         tabBarShowLabel: false,
                         tabBarIcon: ({ focused }) => (

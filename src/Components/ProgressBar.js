@@ -6,7 +6,6 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 const ProgressBar = ({ progress = 100, tier = "Tier 1" }) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.tier}>{tier}</Text>
             <View style={styles.progressBackground}>
                 <View style={[styles.progressFill, { width: `${progress}%` }]} />
             </View>
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     },
     progressFill: {
         height: '100%',
-        backgroundColor: '#14BA9C',
+        backgroundColor: '#00B813',
         borderRadius: 8,
     },
 });
