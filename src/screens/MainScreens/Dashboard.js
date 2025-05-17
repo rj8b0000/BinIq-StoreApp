@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  Pressable,
 } from "react-native";
 import { Circle } from "react-native-progress"; // For circular progress
 import {
@@ -74,33 +75,7 @@ const Dashboard = ({ percentage = 70 }) => {
             style={styles.firstCardProgressBar}
           />
           <View style={styles.graphDetailsView}>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: wp(2),
-                  height: wp(2),
-                  backgroundColor: "#0049AF",
-                  borderRadius: 3,
-                }}
-              />
-              <Text
-                style={{
-                  color: "#000",
-                  fontFamily: "Nunito-Bold",
-                  fontSize: hp(0.9),
-                }}
-              >
-                {" "}
-                Total Users{" "}
-              </Text>
-            </View>
-            <View
+            {/* <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-around",
@@ -125,7 +100,7 @@ const Dashboard = ({ percentage = 70 }) => {
                 {" "}
                 Remaining
               </Text>
-            </View>
+            </View> */}
           </View>
           <View style={styles.cardText}>
             <Text
@@ -210,7 +185,7 @@ const Dashboard = ({ percentage = 70 }) => {
       {/* Bottom Cards */}
       <View style={styles.bottomCardsContainer}>
         {/* Current Plan */}
-        <View style={styles.smallCard}>
+        {/* <View style={styles.smallCard}>
           <Text
             style={{
               fontSize: wp(3),
@@ -242,7 +217,7 @@ const Dashboard = ({ percentage = 70 }) => {
               31-10-2024
             </Text>
           </View>
-        </View>
+        </View> */}
 
         {/* Education Level */}
         <View style={styles.middleCard}>
@@ -263,7 +238,7 @@ const Dashboard = ({ percentage = 70 }) => {
         </View>
 
         {/* Inventory Level */}
-        <View style={styles.smallCard}>
+        {/* <View style={styles.smallCard}>
           <Text
             style={{
               fontSize: wp(3),
@@ -295,7 +270,12 @@ const Dashboard = ({ percentage = 70 }) => {
               31-10-2024
             </Text>
           </View>
-        </View>
+        </View> */}
+      </View>
+      <View style={styles.enrollNowContainer}>
+        <Pressable style={styles.libButton}>
+          <Text style={styles.liBbuttonText}>Get verified</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -413,7 +393,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
     alignItems: "center",
-    width: "38%",
+    width: "100%",
     height: hp(15),
   },
   smallCardTitle: {
@@ -479,6 +459,30 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#130160",
     fontFamily: "Nunito-SemiBold",
+  },
+  enrollNowContainer: {
+    width: wp(95),
+    height: hp(13),
+    bottom: 0,
+    alignSelf: "center",
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  libButton: {
+    backgroundColor: "#130160",
+    width: "95%",
+    height: hp(3.5),
+    borderRadius: 7,
+    justifyContent: "center",
+    marginTop: "2.5%",
+  },
+  liBbuttonText: {
+    color: "white",
+    fontSize: hp(1.4),
+    fontFamily: "Nunito-Bold",
+    textAlign: "center",
   },
 });
 

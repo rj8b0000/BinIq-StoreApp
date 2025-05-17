@@ -1,16 +1,26 @@
-import { Image, ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
-import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { maxWorkers } from '../../metro.config';
-import Splash from '../../assets/Splash.svg'
-import City from '../../assets/City.svg'
+import {
+  Image,
+  ImageBackground,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import React, { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { maxWorkers } from "../../metro.config";
+import Splash from "../../assets/Splash.svg";
+import City from "../../assets/City.svg";
 
 const SplashScreen = () => {
   const navigation = useNavigation();
   // useEffect(()=>{
-  //     setTimeout(()=>{    
+  //     setTimeout(()=>{
   //         checkUserLogin();
   //     }, 3500)
   // },[])
@@ -28,38 +38,41 @@ const SplashScreen = () => {
   // }
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('OnBoarding')
-    }, 2500)
-  }, [])
+      navigation.navigate("OnBoarding");
+    }, 2500);
+  }, []);
   return (
     <View style={styles.container}>
-      <StatusBar translucent={true} backgroundColor={'transparent'} />
-      <ImageBackground source={require('../../assets/vector_1.png')} style={styles.vector}>
+      <StatusBar translucent={true} backgroundColor={"transparent"} />
+      <ImageBackground
+        source={require("../../assets/vector_1.png")}
+        style={styles.vector}
+      >
         <View style={styles.logoContainer}>
-          <View style={{ bottom: '4%' }}>
+          <View>
             <Splash width={wp(38)} />
           </View>
-          <Text style={styles.logoText}>Your one-stop solution for managing your store and driving sales</Text>
         </View>
-        <City
-          style={styles.cityVector}
-        />
+        <Text style={styles.logoText}>
+          Your one-stop solution for managing your store and driving sales
+        </Text>
+        <City style={styles.cityVector} />
       </ImageBackground>
     </View>
-  )
-}
+  );
+};
 
-export default SplashScreen
+export default SplashScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff",
   },
   logoContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   logo: {
     width: wp(40),
@@ -71,18 +84,18 @@ const styles = StyleSheet.create({
     height: hp(100),
   },
   logoText: {
-    fontFamily: 'Nunito-SemiBold',
-    color: '#000',
-    fontSize: hp(2.5),
-    position: 'absolute',
-    bottom: '42%',
-    width: '90%',
-    textAlign: 'center',
-    marginVertical: '2%'
+    fontFamily: "Nunito-SemiBold",
+    color: "#000",
+    fontSize: hp(2),
+    // position: "absolute",
+    alignSelf: "center",
+    bottom: "42%",
+    width: "90%",
+    textAlign: "center",
   },
   cityVector: {
-    position: 'absolute',
+    position: "absolute",
     width: wp(50),
-    bottom: 0
-  }
-})
+    bottom: 0,
+  },
+});
