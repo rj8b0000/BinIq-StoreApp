@@ -74,34 +74,6 @@ const Dashboard = ({ percentage = 70 }) => {
             textStyle={styles.progressText}
             style={styles.firstCardProgressBar}
           />
-          <View style={styles.graphDetailsView}>
-            {/* <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: wp(2),
-                  height: wp(2),
-                  backgroundColor: "#FFBB36",
-                  borderRadius: 3,
-                }}
-              />
-              <Text
-                style={{
-                  color: "#000",
-                  fontFamily: "Nunito-Bold",
-                  fontSize: hp(0.9),
-                }}
-              >
-                {" "}
-                Remaining
-              </Text>
-            </View> */}
-          </View>
           <View style={styles.cardText}>
             <Text
               style={{
@@ -110,7 +82,8 @@ const Dashboard = ({ percentage = 70 }) => {
                 fontSize: hp(1.1),
               }}
             >
-              Your Network of 2,900 Resellers & Owners Awaits.
+              Unlock Visibility, Connect with Customers, Gain Access to
+              Reseller’s Community, Competitive Edge and Boost Sales
             </Text>
           </View>
         </View>
@@ -220,7 +193,7 @@ const Dashboard = ({ percentage = 70 }) => {
         </View> */}
 
         {/* Education Level */}
-        <View style={styles.middleCard}>
+        {/* <View style={styles.middleCard}>
           <Text style={styles.bottomcard2Title}>VERIFIED</Text>
           <View style={{ height: hp(4) }} />
           <View style={styles.cardButton}>
@@ -235,7 +208,7 @@ const Dashboard = ({ percentage = 70 }) => {
               VERIFIED NOW
             </Text>
           </View>
-        </View>
+        </View> */}
 
         {/* Inventory Level */}
         {/* <View style={styles.smallCard}>
@@ -394,7 +367,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     alignItems: "center",
     width: "100%",
-    height: hp(15),
+    height: hp(10),
   },
   smallCardTitle: {
     fontSize: 14,
@@ -431,8 +404,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#00B813",
     width: "100%",
     height: hp(3),
-    margin: "10%",
-    bottom: "10%",
+    // margin: "10%",
+    // bottom: "10%",
     borderRadius: 5,
     justifyContent: "center",
   },

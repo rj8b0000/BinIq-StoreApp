@@ -52,8 +52,60 @@ const Dashboard3 = ({ percentage = 70 }) => {
 
       {/* Main Cards */}
       <View style={styles.cardsContainer}>
+        <View style={styles.smallCard}>
+          <Text
+            style={{
+              fontSize: wp(3.3),
+              color: "#130160",
+              fontFamily: "Nunito-SemiBold",
+              textAlign: "center",
+            }}
+          >
+            TOTAL UPLOADS
+          </Text>
+          <View
+            style={{
+              width: "70%",
+              height: "40%",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "20%",
+            }}
+          >
+            <Circle
+              size={hp(10)}
+              progress={0.8}
+              showsText={true}
+              thickness={5}
+              color="#00B813"
+              unfilledColor="#DDF4DF"
+              textStyle={styles.progressText}
+              style={styles.firstCardProgressBar}
+            />
+          </View>
+        </View>
+        <View style={styles.smallCard2}>
+          <Text style={styles.bottomcard2Title}>CREATE NEW PROMOTION</Text>
+          <View style={{ height: hp(1.7) }} />
+          <TouchableOpacity
+            style={styles.cardButton}
+            onPress={() => navigation.navigate("NewPromotionScreen")}
+          >
+            <Text
+              style={{
+                color: "#fff",
+                fontFamily: "Nunito-SemiBold",
+                fontSize: hp(1.4),
+                textAlign: "center",
+              }}
+            >
+              Create
+            </Text>
+          </TouchableOpacity>
+        </View>
+
         {/* Upgrade Storage */}
-        <View style={styles.card}>
+        {/* <View style={styles.card}>
           <Text
             style={{
               fontSize: wp(3.7),
@@ -64,7 +116,7 @@ const Dashboard3 = ({ percentage = 70 }) => {
             VIEWS
           </Text>
           <Graph width={"98%"} height={"90%"} />
-        </View>
+        </View> */}
 
         {/* Unlock Education */}
         {/* <View style={{
@@ -113,43 +165,36 @@ const Dashboard3 = ({ percentage = 70 }) => {
       {/* Bottom Cards */}
       <View style={styles.bottomCardsContainer}>
         {/* Current Plan */}
-        <View style={styles.smallCard}>
-          <Text
-            style={{
-              fontSize: wp(3.3),
-              color: "#130160",
-              fontFamily: "Nunito-SemiBold",
-              textAlign: "center",
-            }}
-          >
-            TOTAL UPLOADS
-          </Text>
-          <View
-            style={{
-              width: "70%",
-              height: "40%",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "20%",
-            }}
-          >
-            <Circle
-              size={hp(10)}
-              progress={0.8}
-              showsText={true}
-              thickness={5}
-              color="#00B813"
-              unfilledColor="#DDF4DF"
-              textStyle={styles.progressText}
-              style={styles.firstCardProgressBar}
-            />
+        <View
+          style={{
+            flexDirection: "column",
+            width: "49%",
+            height: hp(10),
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={styles.bottomCard1}>
+            <Text style={styles.bottomcard2Title}>Quick Upload</Text>
+            <View style={{ height: hp(1.7) }} />
+            <View style={styles.cardButton}>
+              <Text
+                style={{
+                  color: "#fff",
+                  fontFamily: "Nunito-SemiBold",
+                  fontSize: hp(1.4),
+                  textAlign: "center",
+                }}
+              >
+                Quick Upload
+              </Text>
+            </View>
           </View>
         </View>
         <View
           style={{
             flexDirection: "column",
-            width: "47%",
-            height: hp(20),
+            width: "49%",
+            height: hp(10),
             justifyContent: "space-between",
           }}
         >
@@ -172,7 +217,7 @@ const Dashboard3 = ({ percentage = 70 }) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.bottomCard1}>
+          {/* <View style={styles.bottomCard1}>
             <Text style={styles.bottomcard2Title}>Quick Upload</Text>
             <View style={{ height: hp(1.7) }} />
             <View style={styles.cardButton}>
@@ -187,7 +232,7 @@ const Dashboard3 = ({ percentage = 70 }) => {
                 Quick Upload
               </Text>
             </View>
-          </View>
+          </View> */}
         </View>
 
         {/* Education Level */}
@@ -317,6 +362,22 @@ const styles = StyleSheet.create({
     width: "48%",
     height: hp(20),
     // justifyContent: 'space-between'
+  },
+  smallCard2: {
+    // flex: 1,
+    backgroundColor: "#F2F5F8",
+    borderRadius: 6,
+    // padding: 10,
+    // marginHorizontal: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    alignItems: "center",
+    width: "48%",
+    height: hp(20),
+    justifyContent: "center",
   },
   bottomCard1: {
     backgroundColor: "#F2F5F8",

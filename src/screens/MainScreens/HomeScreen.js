@@ -743,14 +743,11 @@ const HomeScreen = ({ openDrawer }) => {
             {/* </View> */}
           </View>
           <View style={styles.container}>
-            <Pressable
-              style={styles.searchContainer}
-              onPress={() => navigation.navigate("SearchScreen")}
-            >
+            <Pressable style={styles.searchContainer}>
               <View style={styles.cameraButton}>
                 <UploadPlus />
               </View>
-              <Text style={styles.input}>UPLOAD</Text>
+              <Text style={styles.input}>UPLOAD NEW CONTENT</Text>
               <View style={styles.searchButton}>
                 <SearchIcon />
               </View>

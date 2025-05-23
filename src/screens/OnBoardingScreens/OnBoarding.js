@@ -86,8 +86,7 @@ const onboardingData = [
           fontSize: wp(3.8),
         }}
       >
-        Effortlessly scan items, and list more products while tracking live
-        prices, item details, and more.{" "}
+        Show weekly arrivals, deals and connect with your customers.{" "}
       </Text>
     ),
     image: <Onboarding3 width={"99%"} />, // Add your image path

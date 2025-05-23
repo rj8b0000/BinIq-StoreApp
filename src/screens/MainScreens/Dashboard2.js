@@ -19,6 +19,7 @@ import ProgressBar from "../../Components/ProgressBar";
 import Folders from "../../../assets/dashboard_2.svg";
 import BoldTick from "../../../assets/bold_tick.svg";
 import GreenBoldTick from "../../../assets/GreenBoldTick.svg";
+import { useNavigation } from "@react-navigation/native";
 
 const Dashboard2 = ({ percentage = 70 }) => {
   const size = Dimensions.get("window").width * 0.2;
@@ -26,6 +27,7 @@ const Dashboard2 = ({ percentage = 70 }) => {
   const center = size / 2;
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * Math.PI;
+  const navigation = useNavigation();
 
   // Calculate the path for the semi-circle
   const semiCircle = `
@@ -204,7 +206,7 @@ const Dashboard2 = ({ percentage = 70 }) => {
                 width: "90%",
               }}
             >
-              <View
+              <TouchableOpacity
                 style={{
                   width: "100%",
                   height: hp(3),
@@ -213,6 +215,7 @@ const Dashboard2 = ({ percentage = 70 }) => {
                   alignItems: "center",
                   marginTop: hp(2),
                 }}
+                onPress={() => navigation.navigate("EditProfileScreen")}
               >
                 <Text
                   style={{
@@ -223,7 +226,7 @@ const Dashboard2 = ({ percentage = 70 }) => {
                 >
                   Edit Profile
                 </Text>
-              </View>
+              </TouchableOpacity>
               <View
                 style={{
                   width: "100%",

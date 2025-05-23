@@ -29,6 +29,7 @@ import PieGraph from "../../../assets/PieGraph.svg";
 import SettingsIcon from "../../../assets/SettingsIcon.svg";
 import Filter_NewIcon from "../../../assets/Filter_NewIcon.svg";
 import * as Progress from "react-native-progress";
+import Graph from "../../../assets/Graph.svg";
 
 const { width } = Dimensions.get("window");
 const ScanHistoryScreen = () => {
@@ -71,6 +72,18 @@ const ScanHistoryScreen = () => {
         <TouchableOpacity style={styles.menuButton}>
           <Filter_NewIcon />
         </TouchableOpacity>
+      </View>
+      <View style={styles.graphCard}>
+        <Text
+          style={{
+            fontSize: wp(3.7),
+            color: "#130160",
+            fontFamily: "Nunito-Bold",
+          }}
+        >
+          VIEWS
+        </Text>
+        <Graph width={"98%"} height={"90%"} />
       </View>
       <TouchableOpacity
         style={styles.gettingStarted}
@@ -1587,6 +1600,22 @@ const styles = StyleSheet.create({
     elevation: 3,
     marginHorizontal: "0.85%",
     marginBottom: "5%", // Add spacing between rows
+  },
+  graphCard: {
+    flex: 1,
+    width: "95%",
+    height: hp(18),
+    backgroundColor: "#F2F5F8",
+    borderRadius: 6,
+    marginHorizontal: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    paddingVertical: "2.5%",
+    alignItems: "center",
+    alignSelf: "center",
   },
   image: {
     width: "100%",

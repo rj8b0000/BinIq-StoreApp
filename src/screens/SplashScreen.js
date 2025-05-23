@@ -54,7 +54,7 @@ const SplashScreen = () => {
           </View>
         </View>
         <Text style={styles.logoText}>
-          Your one-stop solution for managing your store and driving sales
+          The Largest Amazon Bin Store Network
         </Text>
         <City style={styles.cityVector} />
       </ImageBackground>
