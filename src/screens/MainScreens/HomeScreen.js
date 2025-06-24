@@ -17,33 +17,32 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Camera, Search, Menu } from "lucide-react-native";
-import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
-import MapView, { Marker } from "react-native-maps";
-import Feather from "react-native-vector-icons/Feather";
-import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import BinIQIcon from "../../../assets/BinIQIcon.svg";
-import GetButton from "../../../assets/GetButton.svg";
 import Notification from "../../../assets/Notification.svg";
-import CameraIcon from "../../../assets/CameraIcon.svg";
-import SearchIcon from "../../../assets/SearchIcon.svg";
-import MenuIcon from "../../../assets/MenuIcon.svg";
-import BinFinderIcon from "../../../assets/BinFinderIcon.svg";
-import SettingsIcon from "../../../assets/SettingsIcon.svg";
+import UploadPlus from "../../../assets/upload_plus.svg";
+import GiftIcon from "../../../assets/promo_Date.svg";
 import Dashboard from "./Dashboard";
 import Dashboard2 from "./Dashboard2";
 import Dashboard3 from "./Dashboard3";
-import UploadPlus from "../../../assets/upload_plus.svg";
-import GiftIcon from "../../../assets/promo_Date.svg";
+import useStore from "../../store";
 
 const { width, height } = Dimensions.get("window");
+
 const HomeScreen = ({ openDrawer }) => {
   const navigation = useNavigation();
   const [activeSlide, setActiveSlide] = useState(0);
+  const { user, logout } = useStore();
+
+  const handleLogout = () => {
+    logout();
+    navigation.replace("SignUp");
+  };
+
   const topBins = [
     {
       id: 1,
@@ -110,6 +109,7 @@ const HomeScreen = ({ openDrawer }) => {
       review: "4.2",
     },
   ];
+
   const products = [
     {
       id: 1,
@@ -168,6 +168,7 @@ const HomeScreen = ({ openDrawer }) => {
       price: "$24.3 - 35.8",
     },
   ];
+
   const promotions = [
     {
       id: 1,
@@ -191,6 +192,7 @@ const HomeScreen = ({ openDrawer }) => {
       price: "$7 - 27",
     },
   ];
+
   const carouselImages = [
     {
       id: 1,
@@ -208,6 +210,7 @@ const HomeScreen = ({ openDrawer }) => {
       styles: { width: wp(90), height: hp(53) },
     },
   ];
+
   const myFavourites = [
     {
       id: 1,
@@ -291,261 +294,106 @@ const HomeScreen = ({ openDrawer }) => {
       totalDiscount: "60% off",
     },
   ];
+
   const renderCarouselItem = ({ item, index }) => {
     if (item.isMap) {
       return (
-        <View
-          style={{
-            width: wp(90),
-            height: "100%",
-            overflow: "hidden",
-            alignSelf: "center",
-          }}
-        >
+        <View style={styles.carouselItemContainer}>
           <Dashboard2 />
         </View>
       );
     }
     if (item.isDashboard) {
       return (
-        <View
-          style={{
-            width: wp(90),
-            height: "100%",
-            overflow: "hidden",
-            alignSelf: "center",
-          }}
-        >
+        <View style={styles.carouselItemContainer}>
           <Dashboard />
         </View>
       );
     }
     return (
-      // <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: '9%', width: wp(100), height: hp(40), backgroundColor: 'red' }}>
-      //   <Image source={item.image} style={item.styles} />
-      // </View>
-      <View
-        style={{
-          width: wp(90),
-          height: "100%",
-          overflow: "hidden",
-          alignSelf: "center",
-        }}
-      >
+      <View style={styles.carouselItemContainer}>
         <Dashboard3 />
       </View>
     );
   };
+
   const renderItem = ({ item }) => (
-    // <View style={{paddingHorizontal: '0.1%'}}>
     <Pressable
-      style={{ width: wp(50), height: hp(23), marginVertical: "7%" }}
+      style={styles.topBinPressable}
       onPress={() => navigation.navigate("TopBinsNearMe")}
     >
-      <View
-        style={{
-          width: wp(47),
-          height: hp(21.5),
-          borderRadius: 10,
-          elevation: 2,
-          backgroundColor: "#fff",
-        }}
-      >
-        <Image
-          source={item.image}
-          style={{ width: wp(47), height: hp(12), borderRadius: 10 }}
-        />
+      <View style={styles.topBinCard}>
+        <Image source={item.image} style={styles.topBinImage} />
         <Ionicons
           name="heart"
           size={hp(3)}
           color={"#EE2525"}
-          style={{ position: "absolute", right: "2%", top: "2%" }}
+          style={styles.heartIcon}
         />
-        <View
-          style={{
-            margin: "5%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.topBinContent}>
           <View>
-            <Text
-              style={{
-                fontFamily: "Nunito-SemiBold",
-                color: "#0049AF",
-                fontSize: hp(2),
-              }}
-            >
-              {item.title}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Nunito-SemiBold",
-                color: "#000",
-                fontSize: hp(1.6),
-              }}
-            >
-              {item.location}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Nunito-SemiBold",
-                color: "#14BA9C",
-                fontSize: hp(1.4),
-              }}
-            >
-              {item.distance}
-            </Text>
+            <Text style={styles.topBinTitle}>{item.title}</Text>
+            <Text style={styles.topBinLocation}>{item.location}</Text>
+            <Text style={styles.topBinDistance}>{item.distance}</Text>
           </View>
-          <View
-            style={{
-              backgroundColor: "#FFBB36",
-              height: hp(2.3),
-              width: wp(11),
-              flexDirection: "row",
-              justifyContent: "space-around",
-              alignItems: "center",
-              padding: "1.4%",
-              borderRadius: 4,
-            }}
-          >
+          <View style={styles.topBinReviewContainer}>
             <FontAwesome name="star" size={12} color={"#fff"} />
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "Nunito-Regular",
-                fontSize: hp(1.6),
-              }}
-            >
-              {item.review}
-            </Text>
+            <Text style={styles.topBinReviewText}>{item.review}</Text>
           </View>
         </View>
       </View>
     </Pressable>
   );
+
   const renderProductsItem = ({ item }) => (
     <Pressable
-      style={{ width: wp(51), height: hp(23), marginVertical: "5%" }}
-      onPress={() => navigation.navigate("ActivityFeed")}
+      style={styles.productPressable}
+      onPress={() =>
+        navigation.navigate("ActivityFeed", {
+          section: "Activity Feed",
+          data: products,
+        })
+      }
     >
-      <View
-        style={{
-          width: wp(47),
-          height: hp(21),
-          borderRadius: 10,
-          elevation: 2,
-          backgroundColor: "#fff",
-          paddingLeft: "1%",
-        }}
-      >
-        <Image source={item.image} style={{ width: wp(46), height: hp(12) }} />
+      <View style={styles.productCard}>
+        <Image source={item.image} style={styles.productImage} />
         <Ionicons
           name="heart"
           size={hp(3)}
           color={"#EE2525"}
-          style={{ position: "absolute", right: "2%", top: "2%" }}
+          style={styles.heartIcon}
         />
-        <View
-          style={{
-            margin: "3%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.productContent}>
           <View>
-            <Text
-              style={{
-                fontFamily: "Nunito-SemiBold",
-                color: "#0049AF",
-                fontSize: hp(1.6),
-              }}
-            >
-              {item.title}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Nunito-SemiBold",
-                color: "#000",
-                fontSize: hp(1.3),
-              }}
-            >
-              {item.description}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Nunito-Bold",
-                color: "#000",
-                fontSize: hp(1.5),
-              }}
-            >
-              {item.price}
-            </Text>
+            <Text style={styles.productTitle}>{item.title}</Text>
+            <Text style={styles.productDescription}>{item.description}</Text>
+            <Text style={styles.productPrice}>{item.price}</Text>
           </View>
         </View>
       </View>
     </Pressable>
   );
+
   const renderPromotionItem = ({ item }) => (
     <Pressable
-      style={{ width: wp(31.5), height: hp(23), marginVertical: "5%" }}
-      onPress={() => navigation.navigate("ActivityFeed")}
+      style={styles.promotionPressable}
+      onPress={() =>
+        navigation.navigate("ActivityFeed", {
+          section: "Promotions",
+          data: promotions,
+        })
+      }
     >
-      <View
-        style={{
-          width: wp(29),
-          height: hp(23),
-          borderRadius: 10,
-          elevation: 4,
-          backgroundColor: "#fff",
-          paddingLeft: "1%",
-        }}
-      >
-        <Image source={item.image} style={{ width: wp(26), height: hp(12) }} />
-        <View
-          style={{
-            marginTop: "10%",
-            marginHorizontal: "3%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+      <View style={styles.promotionCard}>
+        <Image source={item.image} style={styles.promotionImage} />
+        <View style={styles.promotionContent}>
           <View>
-            <Text
-              style={{
-                fontFamily: "DMSans-Bold",
-                color: "#000",
-                fontSize: hp(1.3),
-              }}
-            >
-              {item.title}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Nunito-SemiBold",
-                color: "#000",
-                fontSize: hp(1.3),
-              }}
-            >
+            <Text style={styles.promotionTitle}>{item.title}</Text>
+            <Text style={styles.promotionDescription}>
               {item.shortDescription}
             </Text>
-            <Text
-              style={{
-                fontFamily: "Nunito-Bold",
-                color: "#14BA9C",
-                fontSize: hp(1.5),
-                marginTop: "4%",
-              }}
-            >
-              Active
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Nunito-SemiBold",
-                color: "#000",
-                fontSize: hp(1.4),
-              }}
-            >
+            <Text style={styles.promotionStatus}>Active</Text>
+            <Text style={styles.promotionDate}>
               <GiftIcon /> Jun20 to July20
             </Text>
           </View>
@@ -553,60 +401,29 @@ const HomeScreen = ({ openDrawer }) => {
       </View>
     </Pressable>
   );
+
   const renderMyFavourites = ({ item }) => (
-    <Pressable style={{ width: wp(45), height: hp(26) }}>
-      <View
-        style={{
-          width: wp(42),
-          height: hp(25),
-          borderRadius: 5,
-          elevation: 2,
-          backgroundColor: "#fff",
-        }}
-      >
-        <Image
-          source={item.image}
-          style={{ width: wp(42), height: hp(13), borderRadius: 5 }}
-        />
-        {/* <Ionicons name='heart' size={hp(3)} color={'#EE2525'} style={{ position: 'absolute', right: '2%', top: '2%' }} /> */}
-        <View style={{ paddingHorizontal: "2.5%" }}>
-          <Text
-            style={{
-              fontFamily: "Nunito-SemiBold",
-              color: "#000",
-              fontSize: hp(1.5),
-              margin: "0.5%",
-            }}
-          >
-            {item.description}
-          </Text>
+    <Pressable
+      style={styles.favouritePressable}
+      onPress={() =>
+        navigation.navigate("ActivityFeed", {
+          section: "Trending Products",
+          data: myFavourites,
+        })
+      }
+    >
+      <View style={styles.favouriteCard}>
+        <Image source={item.image} style={styles.favouriteImage} />
+        <View style={styles.favouriteDescriptionContainer}>
+          <Text style={styles.favouriteDescription}>{item.description}</Text>
         </View>
-        <View
-          style={{
-            position: "absolute",
-            bottom: "2%",
-            paddingHorizontal: "3%",
-          }}
-        >
+        <View style={styles.favouritePriceContainer}>
           <View>
-            <Text
-              style={{
-                fontFamily: "Nunito-Bold",
-                color: "#000",
-                fontSize: hp(1.8),
-              }}
-            >
+            <Text style={styles.favouriteDiscountPrice}>
               {item.discountPrice}
             </Text>
-            <Text style={{ color: "red" }}>
-              <Text
-                style={{
-                  fontFamily: "Nunito-Bold",
-                  color: "#808488",
-                  fontSize: hp(1.8),
-                  textDecorationLine: "line-through",
-                }}
-              >
+            <Text style={styles.favouritePriceText}>
+              <Text style={styles.favouriteOriginalPrice}>
                 {item.originalPrice}
               </Text>
               {"  "}
@@ -617,62 +434,7 @@ const HomeScreen = ({ openDrawer }) => {
       </View>
     </Pressable>
   );
-  const renderResellerPortal = ({ item }) => (
-    <TouchableOpacity style={{ width: wp(44), height: hp(24) }}>
-      <Pressable
-        style={{
-          width: wp(42),
-          height: hp(22),
-          borderRadius: 5,
-          borderWidth: 0.5,
-          borderColor: "#e6e6e6",
-        }}
-      >
-        <Image
-          source={item.image}
-          style={{ width: wp(42), height: hp(11), borderRadius: 5 }}
-        />
-        <View
-          style={{
-            margin: "5%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <View>
-            <Text
-              style={{
-                fontFamily: "Nunito-ExtraBold",
-                color: "#0049AF",
-                fontSize: hp(1.7),
-              }}
-            >
-              {item.miniHeader}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Nunito-SemiBold",
-                color: "#000",
-                fontSize: hp(2.2),
-              }}
-            >
-              {item.title}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Nunito-SemiBold",
-                color: "#14BA9C",
-                fontSize: hp(1.5),
-                marginTop: "5%",
-              }}
-            >
-              {item.tutDetails}
-            </Text>
-          </View>
-        </View>
-      </Pressable>
-    </TouchableOpacity>
-  );
+
   const pagination = () => {
     return (
       <Pagination
@@ -686,72 +448,41 @@ const HomeScreen = ({ openDrawer }) => {
       />
     );
   };
-  const locations = [
-    { id: 1, title: "Location 1", latitude: 37.78825, longitude: -122.4324 },
-    { id: 2, title: "Location 2", latitude: 37.78925, longitude: -122.4224 },
-    { id: 3, title: "Location 3", latitude: 37.79025, longitude: -122.4124 },
-    { id: 4, title: "Location 4", latitude: 37.79125, longitude: -122.4024 },
-    { id: 5, title: "Location 5", latitude: 37.79225, longitude: -122.3924 },
-  ];
+
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: "#fff" }}
-      showsVerticalScrollIndicator={false}
-    >
+    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <StatusBar translucent={true} backgroundColor={"transparent"} />
       <ImageBackground
         source={require("../../../assets/vector_1.png")}
         style={styles.vector}
       >
-        <View style={{ marginTop: "6%" }}>
-          <View
-            style={{
-              width: wp(90),
-              height: hp(5),
-              alignSelf: "center",
-              marginVertical: "4%",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <View
-              style={{
-                width: "28%",
-                height: "100%",
-                justifyContent: "center",
-                alignItems: "flex-start",
-              }}
-            >
+        <View style={styles.headerContainer}>
+          <View style={styles.headerContent}>
+            <View style={styles.logoContainer}>
               <BinIQIcon />
             </View>
-            {/* <View style={{ width: '45%', height: '100%', flexDirection: 'row', alignItems: 'center', paddingRight: '4%' }}>
-              <Pressable onPress={() => navigation.navigate('ReferFriend')}>
-                <GetButton height={hp(3.5)} />
-              </Pressable> */}
-            <Pressable
-              style={{
-                width: "23%",
-                height: "100%",
-                justifyContent: "center",
-                alignItems: "flex-end",
-                paddingRight: "2%",
-              }}
-              onPress={() => navigation.navigate("Notifications")}
-            >
-              <Notification height={hp(4)} />
-            </Pressable>
-            {/* </View> */}
+            <View style={styles.headerIcons}>
+              <Pressable
+                style={styles.notificationButton}
+                onPress={() => navigation.navigate("Notifications")}
+              >
+                <Notification height={hp(3)} width={hp(3)} />
+              </Pressable>
+              <TouchableOpacity onPress={handleLogout}>
+                <MaterialIcons name="logout" size={25} color={"#c0392b"} />
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.container}>
-            <Pressable style={styles.searchContainer}>
-              <View style={styles.cameraButton}>
+          <View style={styles.searchContainer}>
+            <TouchableOpacity
+              style={styles.uploadButton}
+              onPress={() => navigation.navigate("AddProduct")}
+            >
+              <View style={styles.uploadIcon}>
                 <UploadPlus />
               </View>
-              <Text style={styles.input}>UPLOAD NEW CONTENT</Text>
-              <View style={styles.searchButton}>
-                <SearchIcon />
-              </View>
-            </Pressable>
+              <Text style={styles.uploadText}>UPLOAD NEW CONTENT</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <Carousel
@@ -763,324 +494,130 @@ const HomeScreen = ({ openDrawer }) => {
           loop={true}
           onSnapToItem={(index) => setActiveSlide(index)}
         />
-        {/* {carouselImages[activeSlide]?.id === 2 ? (
-          <View style={{ width: wp(100), height: hp(14), paddingHorizontal: '10%', justifyContent: 'center' }}>
-            <BinFinderIcon />
-            <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(2.6) }}>BIN FINDER</Text>
-            <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#667085', fontSize: hp(1.7) }}>Discover Hidden Gems Near You</Text>
-          </View>
-          ) :
-            carouselImages[activeSlide]?.id === 3 ? (
-              <>
-                <View style={styles.header}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.greeting}>
-                      Hello, <Text style={styles.name}>Lee Carter</Text>
-                    </Text>
-                    <Text style={styles.subtext}>Here's what you've been up to lately!</Text>
-                  </View>
-                  <Image
-                    source={require('../../../assets/dashboard_profile.png')} // Replace with profile picture
-                    style={styles.profileImage}
-                  />
-                </View>
-                <View style={{ width: wp(100), height: hp(15), paddingHorizontal: '12%', justifyContent: 'center', backgroundColor: 'green' }}>
-                  <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#000', fontSize: hp(2.2) }}>KNOWLEDGE IS OPPORTUNITIES</Text>
-                  <Text style={{ fontFamily: 'Nunito-SemiBold', color: '#667085', fontSize: hp(1.4) }}>Ready to become a Bin IQ PRO? In this training learn the secrets of pinpointing the best bin stores, selecting the right items, listing effectively, and selling strategically with our proven BinIQ blueprint.</Text>
-                  <View style={styles.cardButton}>
-                    <Text style={{ color: '#fff', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.4), textAlign: 'center' }}>KEEP GOING</Text>
-                  </View>
-                </View>
-              </>
-        )
-          : null
-        } */}
         {pagination()}
       </ImageBackground>
-      {/* MY FAVOURITES  */}
-      <View style={{ flex: 1, width: "100%", height: hp(63), marginTop: "6%" }}>
-        <View style={{ marginVertical: "0%", paddingHorizontal: "3%" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginVertical: "2.5%",
-            }}
+      <View style={styles.trendingSection}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Trending Products</Text>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("ActivityFeed", {
+                section: "Trending Products",
+                data: myFavourites,
+              })
+            }
           >
-            <Text
-              style={{
-                fontFamily: "Nunito-Bold",
-                fontSize: hp(2.4),
-                color: "#000000",
-              }}
-            >
-              Trending Products
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("FavouritesScreen")}
-            >
-              <Text
-                style={{
-                  color: "#524B6B",
-                  fontSize: hp(1.9),
-                  textDecorationLine: "underline",
-                }}
-              >
-                View All
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ marginVertical: "3%" }}>
-            <FlatList
-              data={myFavourites}
-              renderItem={renderMyFavourites}
-              keyExtractor={(item) => item.id.toString()}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-          <View style={{ marginVertical: "3%" }}>
-            <FlatList
-              data={myFavourites}
-              renderItem={renderMyFavourites}
-              keyExtractor={(item) => item.id.toString()}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
+            <Text style={styles.viewAllText}>View All</Text>
+          </TouchableOpacity>
         </View>
-      </View>
-      {/* PRODUCTS  */}
-      <View style={{ flex: 1, width: "100%", height: hp(56) }}>
-        <View style={{ marginVertical: "0%", paddingHorizontal: "5%" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginVertical: "2.5%",
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: "Nunito-Bold",
-                fontSize: hp(2.3),
-                color: "#000000",
-              }}
-            >
-              ACTIVITY FEED
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("TopBinItems")}
-            >
-              <Text
-                style={{
-                  color: "#524B6B",
-                  fontSize: hp(1.9),
-                  textDecorationLine: "underline",
-                }}
-              >
-                View All
-              </Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.flatListContainer}>
           <FlatList
-            data={products}
-            renderItem={renderProductsItem}
+            data={myFavourites}
+            renderItem={renderMyFavourites}
             keyExtractor={(item) => item.id.toString()}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           />
+        </View>
+        <View style={styles.flatListContainer}>
           <FlatList
-            data={products}
-            renderItem={renderProductsItem}
+            data={myFavourites}
+            renderItem={renderMyFavourites}
             keyExtractor={(item) => item.id.toString()}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           />
         </View>
       </View>
-      {/* PROMOTIONS  */}
-      <View style={{ flex: 1, width: "100%", height: hp(30) }}>
-        <View style={{ marginVertical: "0%", paddingHorizontal: "5%" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginVertical: "2.5%",
-            }}
+      <View style={styles.activitySection}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>ACTIVITY FEED</Text>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("ActivityFeed", {
+                section: "Activity Feed",
+                data: products,
+              })
+            }
           >
-            <Text
-              style={{
-                fontFamily: "Nunito-Bold",
-                fontSize: hp(2.3),
-                color: "#000000",
-              }}
-            >
-              PROMOTIONS
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("FavouritesScreen")}
-            >
-              <Text
-                style={{
-                  color: "#524B6B",
-                  fontSize: hp(1.9),
-                  textDecorationLine: "underline",
-                }}
-              >
-                View All
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <FlatList
-            data={promotions}
-            renderItem={renderPromotionItem}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          />
+            <Text style={styles.viewAllText}>View All</Text>
+          </TouchableOpacity>
         </View>
+        <FlatList
+          data={products}
+          renderItem={renderProductsItem}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+        <FlatList
+          data={products}
+          renderItem={renderProductsItem}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
       </View>
-      {/* RESELLER IO PORTAL  */}
-      <View style={{ flex: 1, width: "100%", height: hp(42) }}>
-        <View style={{ marginVertical: "0%", paddingHorizontal: "3%" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginVertical: "2.5%",
-            }}
+      <View style={styles.promotionSection}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>PROMOTIONS</Text>
+        </View>
+        <FlatList
+          data={promotions}
+          renderItem={renderPromotionItem}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+      <View style={styles.iqPortalSection}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>IQ PORTAL</Text>
+        </View>
+        <View style={styles.iqPortalContainer}>
+          <Pressable
+            style={styles.iqPortalPressable}
+            onPress={() => navigation.navigate("IQPortal")}
           >
-            <Text
-              style={{
-                fontFamily: "Nunito-Bold",
-                fontSize: hp(2.3),
-                color: "#000000",
-              }}
-            >
-              IQ PORTAL
-            </Text>
-            {/* <TouchableOpacity onPress={() => navigation.navigate('IQPortal')}>
-              <Text style={{ color: '#524B6B', fontSize: hp(1.9), textDecorationLine: 'underline' }}>View All</Text>
-            </TouchableOpacity> */}
-          </View>
-          <View
-            style={{
-              marginVertical: "4%",
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "space-between",
-            }}
-          >
-            <Pressable
-              style={{ width: wp(45), height: hp(24) }}
-              onPress={() => navigation.navigate("IQPortal")}
-            >
-              <View
-                style={{
-                  width: wp(45),
-                  height: hp(22),
-                  borderRadius: 5,
-                  elevation: 2,
-                  backgroundColor: "#fff",
-                  paddingLeft: "1%",
-                }}
-              >
-                <Image
-                  source={require("../../../assets/reseller_training.png")}
-                  style={{ width: wp(45), height: hp(11), borderRadius: 5 }}
-                />
-                <View
-                  style={{
-                    margin: "3%",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <View>
-                    <Text
-                      style={{
-                        fontFamily: "Nunito-ExtraBold",
-                        color: "#0049AF",
-                        fontSize: hp(1.7),
-                      }}
-                    >
-                      {"How to start a Bin Store"}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: "Nunito-SemiBold",
-                        color: "#000",
-                        fontSize: hp(2.2),
-                        marginVertical: "1%",
-                      }}
-                    >
-                      {"Bin Store"}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: "Nunito-SemiBold",
-                        color: "#14BA9C",
-                        fontSize: hp(1.5),
-                        marginTop: "5%",
-                      }}
-                    >
-                      {"Full Video • With PDF"}
-                    </Text>
-                  </View>
+            <View style={styles.iqPortalCard}>
+              <Image
+                source={require("../../../assets/reseller_training.png")}
+                style={styles.iqPortalImage}
+              />
+              <View style={styles.iqPortalContent}>
+                <View>
+                  <Text style={styles.iqPortalMiniHeader}>
+                    How to start a Bin Store
+                  </Text>
+                  <Text style={styles.iqPortalTitle}>Bin Store</Text>
+                  <Text style={styles.iqPortalDetails}>
+                    Full Video • With PDF
+                  </Text>
                 </View>
               </View>
-            </Pressable>
-            <Pressable
-              style={{ width: wp(45), height: hp(24) }}
-              onPress={() => navigation.navigate("IQPortal")}
-            >
-              <View
-                style={{
-                  width: wp(45),
-                  height: hp(22),
-                  borderRadius: 5,
-                  elevation: 2,
-                  backgroundColor: "#fff",
-                  paddingLeft: "1%",
-                }}
-              >
-                <Image
-                  source={require("../../../assets/reseller_training.png")}
-                  style={{ width: wp(45), height: hp(11), borderRadius: 5 }}
-                />
-                <View
-                  style={{
-                    margin: "3%",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <View>
-                    <Text
-                      style={{
-                        fontFamily: "Nunito-ExtraBold",
-                        color: "#0049AF",
-                        fontSize: hp(1.4),
-                      }}
-                    >
-                      {"Free Direct Contract Holder Training & Supplier List"}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: "Nunito-SemiBold",
-                        color: "#000",
-                        fontSize: hp(2.2),
-                        marginVertical: "1%",
-                      }}
-                    >
-                      {"Supplier Connect & Training"}
-                    </Text>
-                  </View>
+            </View>
+          </Pressable>
+          <Pressable
+            style={styles.iqPortalPressable}
+            onPress={() => navigation.navigate("IQPortal")}
+          >
+            <View style={styles.iqPortalCard}>
+              <Image
+                source={require("../../../assets/reseller_training.png")}
+                style={styles.iqPortalImage}
+              />
+              <View style={styles.iqPortalContent}>
+                <View>
+                  <Text style={styles.iqPortalMiniHeader}>
+                    Free Direct Contract Holder Training & Supplier List
+                  </Text>
+                  <Text style={styles.iqPortalTitle}>
+                    Supplier Connect & Training
+                  </Text>
                 </View>
               </View>
-            </Pressable>
-          </View>
+            </View>
+          </Pressable>
         </View>
       </View>
     </ScrollView>
@@ -1090,31 +627,63 @@ const HomeScreen = ({ openDrawer }) => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
   vector: {
     flex: 1,
     width: wp(100),
     height: hp(78),
   },
-  container: {
+  headerContainer: {
+    marginTop: "6%",
+  },
+  headerContent: {
+    width: wp(90),
+    height: hp(5),
+    alignSelf: "center",
+    marginVertical: "4%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  logoContainer: {
+    width: "28%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  headerIcons: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    width: "20%",
+    height: "100%",
+    justifyContent: "space-between",
+  },
+  notificationButton: {
+    justifyContent: "center",
+    alignItems: "flex-end",
+  },
+  searchContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: "3%",
   },
-  searchContainer: {
+  uploadButton: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    // backgroundColor: 'trasparent',
     borderWidth: 1,
     borderRadius: 12,
     marginRight: 10,
     borderColor: "#99ABC678",
     height: hp(6),
   },
-  cameraButton: {
+  uploadIcon: {
     padding: 10,
   },
-  input: {
+  uploadText: {
     flex: 1,
     fontSize: hp(2),
     fontFamily: "Nunito-Regular",
@@ -1122,17 +691,11 @@ const styles = StyleSheet.create({
     color: "#000",
     textAlign: "center",
   },
-  searchButton: {
-    padding: 10,
-  },
-  menuButton: {
-    backgroundColor: "#130160",
-    padding: 10,
-    borderRadius: 12,
-    height: hp(6),
-    width: wp(14),
-    justifyContent: "center",
-    alignItems: "center",
+  carouselItemContainer: {
+    width: wp(90),
+    height: "100%",
+    overflow: "hidden",
+    alignSelf: "center",
   },
   paginationContainer: {
     position: "absolute",
@@ -1150,44 +713,1264 @@ const styles = StyleSheet.create({
   paginationInactiveDot: {
     backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
-  map: {
-    ...StyleSheet.absoluteFillObject,
+  trendingSection: {
+    flex: 1,
+    width: "94%",
+    height: hp(63),
+    marginTop: "6%",
+    marginHorizontal: "3%",
   },
-  carouselItem: {
-    justifyContent: "center",
-    alignItems: "center",
+  activitySection: {
+    flex: 1,
+    width: "94%",
+    height: hp(56),
+    marginHorizontal: "3%",
   },
-  cardButton: {
-    backgroundColor: "#130160",
-    width: "40%",
-    height: hp(3.5),
-    marginVertical: "3%",
-    borderRadius: 5,
-    justifyContent: "center",
+  promotionSection: {
+    flex: 1,
+    width: "94%",
+    height: hp(30),
+    marginHorizontal: "3%",
   },
-  header: {
+  iqPortalSection: {
+    flex: 1,
+    width: "94%",
+    marginHorizontal: "3%",
+    height: hp(42),
+  },
+  sectionHeader: {
     flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 16,
+    justifyContent: "space-between",
+    marginVertical: "2.5%",
+    paddingRight: "3%",
   },
-  greeting: {
-    fontSize: hp(2.4),
+  sectionTitle: {
     fontFamily: "Nunito-Bold",
-    color: "#000",
+    fontSize: hp(2.3),
+    color: "#000000",
   },
-  name: {
-    color: "#000",
-    fontFamily: "Nunito-Bold",
+  viewAllText: {
+    color: "#524B6B",
+    fontSize: hp(1.9),
     textDecorationLine: "underline",
   },
-  subtext: {
-    fontSize: wp(3.5),
-    color: "#000",
-    fontFamily: "Nunito-Bold",
+  flatListContainer: {
+    marginVertical: "3%",
   },
-  profileImage: {
+  topBinPressable: {
+    width: wp(50),
+    height: hp(23),
+    marginVertical: "7%",
+  },
+  topBinCard: {
+    width: wp(47),
+    height: hp(21.5),
+    borderRadius: 10,
+    elevation: 2,
+    backgroundColor: "#fff",
+  },
+  topBinImage: {
+    width: wp(47),
+    height: hp(12),
+    borderRadius: 10,
+  },
+  heartIcon: {
+    position: "absolute",
+    right: "2%",
+    top: "2%",
+  },
+  topBinContent: {
+    margin: "5%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  topBinTitle: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#0049AF",
+    fontSize: hp(2),
+  },
+  topBinLocation: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#000",
+    fontSize: hp(1.6),
+  },
+  topBinDistance: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#14BA9C",
+    fontSize: hp(1.4),
+  },
+  topBinReviewContainer: {
+    backgroundColor: "#FFBB36",
+    height: hp(2.3),
     width: wp(11),
-    height: wp(11),
-    borderRadius: 25,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    padding: "1.4%",
+    borderRadius: 4,
+  },
+  topBinReviewText: {
+    color: "#fff",
+    fontFamily: "Nunito-Regular",
+    fontSize: hp(1.6),
+  },
+  productPressable: {
+    width: wp(51),
+    height: hp(23),
+    marginVertical: "5%",
+  },
+  productCard: {
+    width: wp(49),
+    height: hp(21),
+    borderRadius: 10,
+    elevation: 2,
+    backgroundColor: "#fff",
+    paddingLeft: "1%",
+  },
+  productImage: {
+    width: wp(49),
+    height: hp(12),
+  },
+  productContent: {
+    margin: "3%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  productTitle: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#0049AF",
+    fontSize: hp(1.6),
+  },
+  productDescription: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#000",
+    fontSize: hp(1.3),
+  },
+  productPrice: {
+    fontFamily: "Nunito-Bold",
+    color: "#000",
+    fontSize: hp(1.5),
+  },
+  promotionPressable: {
+    width: wp(33),
+    height: hp(23),
+    marginVertical: "5%",
+  },
+  promotionCard: {
+    width: wp(29),
+    height: hp(23),
+    borderRadius: 10,
+    elevation: 4,
+    backgroundColor: "#fff",
+    paddingLeft: "1%",
+  },
+  promotionImage: {
+    width: wp(26),
+    height: hp(12),
+  },
+  promotionContent: {
+    marginTop: "10%",
+    marginHorizontal: "3%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  promotionTitle: {
+    fontFamily: "DMSans-Bold",
+    color: "#000",
+    fontSize: hp(1.3),
+  },
+  promotionDescription: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#000",
+    fontSize: hp(1.3),
+  },
+  promotionStatus: {
+    fontFamily: "Nunito-Bold",
+    color: "#14BA9C",
+    fontSize: hp(1.5),
+    marginTop: "4%",
+  },
+  promotionDate: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#000",
+    fontSize: hp(1.4),
+  },
+  favouritePressable: {
+    width: wp(45),
+    height: hp(26),
+  },
+  favouriteCard: {
+    width: wp(43),
+    height: hp(25),
+    borderRadius: 5,
+    elevation: 2,
+    backgroundColor: "#fff",
+  },
+  favouriteImage: {
+    width: wp(43),
+    height: hp(13),
+    borderRadius: 5,
+  },
+  favouriteDescriptionContainer: {
+    paddingHorizontal: "2.5%",
+  },
+  favouriteDescription: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#000",
+    fontSize: hp(1.5),
+    margin: "0.5%",
+  },
+  favouritePriceContainer: {
+    position: "absolute",
+    bottom: "2%",
+    paddingHorizontal: "3%",
+  },
+  favouriteDiscountPrice: {
+    fontFamily: "Nunito-Bold",
+    color: "#000",
+    fontSize: hp(1.8),
+  },
+  favouritePriceText: {
+    color: "red",
+  },
+  favouriteOriginalPrice: {
+    fontFamily: "Nunito-Bold",
+    color: "#808488",
+    fontSize: hp(1.8),
+    textDecorationLine: "line-through",
+  },
+  iqPortalPressable: {
+    width: wp(47),
+    height: hp(24),
+  },
+  iqPortalCard: {
+    width: wp(47),
+    height: hp(22),
+    borderRadius: 5,
+    elevation: 2,
+    backgroundColor: "#fff",
+    paddingLeft: "1%",
+  },
+  iqPortalImage: {
+    width: wp(47),
+    height: hp(11),
+    borderRadius: 5,
+  },
+  iqPortalContent: {
+    margin: "3%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  iqPortalMiniHeader: {
+    fontFamily: "Nunito-ExtraBold",
+    color: "#0049AF",
+    fontSize: hp(1.4),
+  },
+  iqPortalTitle: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#000",
+    fontSize: hp(2.2),
+    marginVertical: "1%",
+  },
+  iqPortalDetails: {
+    fontFamily: "Nunito-SemiBold",
+    color: "#14BA9C",
+    fontSize: hp(1.5),
+    marginTop: "5%",
+  },
+  iqPortalContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: "3%",
   },
 });
+// import {
+//   Image,
+//   ImageBackground,
+//   StatusBar,
+//   StyleSheet,
+//   Text,
+//   TouchableOpacity,
+//   View,
+//   ScrollView,
+//   FlatList,
+//   Pressable,
+//   Dimensions,
+// } from "react-native";
+// import React, { useState } from "react";
+// import {
+//   widthPercentageToDP as wp,
+//   heightPercentageToDP as hp,
+// } from "react-native-responsive-screen";
+// import FontAwesome from "react-native-vector-icons/FontAwesome";
+// import { useNavigation } from "@react-navigation/native";
+// import Carousel, { Pagination } from "react-native-snap-carousel";
+// import Ionicons from "react-native-vector-icons/Ionicons";
+// import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+// import BinIQIcon from "../../../assets/BinIQIcon.svg";
+// import Notification from "../../../assets/Notification.svg";
+// import UploadPlus from "../../../assets/upload_plus.svg";
+// import GiftIcon from "../../../assets/promo_Date.svg";
+// import Dashboard from "./Dashboard";
+// import Dashboard2 from "./Dashboard2";
+// import Dashboard3 from "./Dashboard3";
+// import useStore from "../../store";
+
+// const { width, height } = Dimensions.get("window");
+
+// const HomeScreen = ({ openDrawer }) => {
+//   const navigation = useNavigation();
+//   const [activeSlide, setActiveSlide] = useState(0);
+//   const { user, logout } = useStore();
+
+//   const handleLogout = () => {
+//     logout();
+//     navigation.replace("SignUp");
+//   };
+
+//   const topBins = [
+//     {
+//       id: 1,
+//       image: require("../../../assets/flip_find.png"),
+//       title: "FLIP $ FIND",
+//       location: "Florida US",
+//       distance: "3.4KM",
+//       review: "4.2",
+//     },
+//     {
+//       id: 2,
+//       image: require("../../../assets/hidden_finds.png"),
+//       title: "HIDDED FINDS",
+//       location: "Florida US",
+//       distance: "3.4KM",
+//       review: "4.2",
+//     },
+//     {
+//       id: 3,
+//       image: require("../../../assets/flip_find.png"),
+//       title: "FLIP $ FIND",
+//       location: "Florida US",
+//       distance: "3.4KM",
+//       review: "4.2",
+//     },
+//     {
+//       id: 4,
+//       image: require("../../../assets/hidden_finds.png"),
+//       title: "HIDDED FINDS",
+//       location: "Florida US",
+//       distance: "3.4KM",
+//       review: "4.2",
+//     },
+//     {
+//       id: 5,
+//       image: require("../../../assets/flip_find.png"),
+//       title: "FLIP $ FIND",
+//       location: "Florida US",
+//       distance: "3.4KM",
+//       review: "4.2",
+//     },
+//     {
+//       id: 6,
+//       image: require("../../../assets/hidden_finds.png"),
+//       title: "HIDDED FINDS",
+//       location: "Florida US",
+//       distance: "3.4KM",
+//       review: "4.2",
+//     },
+//     {
+//       id: 7,
+//       image: require("../../../assets/flip_find.png"),
+//       title: "FLIP $ FIND",
+//       location: "Florida US",
+//       distance: "3.4KM",
+//       review: "4.2",
+//     },
+//     {
+//       id: 8,
+//       image: require("../../../assets/hidden_finds.png"),
+//       title: "HIDDED FINDS",
+//       location: "Florida US",
+//       distance: "3.4KM",
+//       review: "4.2",
+//     },
+//   ];
+
+//   const products = [
+//     {
+//       id: 1,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: "Advance whitening toothpaste 160g",
+//       price: "$7 - 27",
+//     },
+//     {
+//       id: 2,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "DARLIE",
+//       description: "All shiny white toothpaste 140g",
+//       price: "$24.3 - 35.8",
+//     },
+//     {
+//       id: 3,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: "Advance whitening toothpaste 160g",
+//       price: "$7 - 27",
+//     },
+//     {
+//       id: 4,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "DARLIE",
+//       description: "All shiny white toothpaste 140g",
+//       price: "$24.3 - 35.8",
+//     },
+//     {
+//       id: 5,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: "Advance whitening toothpaste 160g",
+//       price: "$7 - 27",
+//     },
+//     {
+//       id: 6,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "DARLIE",
+//       description: "All shiny white toothpaste 140g",
+//       price: "$24.3 - 35.8",
+//     },
+//     {
+//       id: 7,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: "Advance whitening toothpaste 160g",
+//       price: "$7 - 27",
+//     },
+//     {
+//       id: 8,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "DARLIE",
+//       description: "All shiny white toothpaste 140g",
+//       price: "$24.3 - 35.8",
+//     },
+//   ];
+
+//   const promotions = [
+//     {
+//       id: 1,
+//       image: require("../../../assets/promotions.png"),
+//       title: "Black Friday Sale",
+//       shortDescription: "Short Description...",
+//       price: "$7 - 27",
+//     },
+//     {
+//       id: 2,
+//       image: require("../../../assets/promotions.png"),
+//       title: "Black Friday Sale",
+//       shortDescription: "Short Description..",
+//       price: "$24.3 - 35.8",
+//     },
+//     {
+//       id: 3,
+//       image: require("../../../assets/promotions.png"),
+//       title: "Black Friday Sale",
+//       shortDescription: "Short Description..",
+//       price: "$7 - 27",
+//     },
+//   ];
+
+//   const carouselImages = [
+//     {
+//       id: 1,
+//       isDashboard: true,
+//       styles: { width: wp(90), height: hp(43) },
+//     },
+//     {
+//       id: 2,
+//       isMap: true,
+//       styles: { width: wp(100), height: hp(100) },
+//     },
+//     {
+//       id: 3,
+//       image: require("../../../assets/slider_1.png"),
+//       styles: { width: wp(90), height: hp(53) },
+//     },
+//   ];
+
+//   const myFavourites = [
+//     {
+//       id: 1,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: `IWC Schaffhausen 2021 Pilot's Watch "SIHH 2019" 44mm`,
+//       discountPrice: "$65",
+//       originalPrice: "$151",
+//       totalDiscount: "60% off",
+//     },
+//     {
+//       id: 2,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: `Labbin White Sneakers For Men and Female`,
+//       discountPrice: "$650",
+//       originalPrice: "$125",
+//       totalDiscount: "70% off",
+//     },
+//     {
+//       id: 3,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: `Mammon Women's Handbag (Set of 3, Beige)`,
+//       discountPrice: "$75",
+//       originalPrice: "$199",
+//       totalDiscount: "60% off",
+//     },
+//     {
+//       id: 4,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: `IWC Schaffhausen 2021 Pilot's Watch "SIHH 2019" 44mm`,
+//       discountPrice: "$65",
+//       originalPrice: "$151",
+//       totalDiscount: "60% off",
+//     },
+//     {
+//       id: 5,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: `Labbin White Sneakers For Men and Female`,
+//       discountPrice: "$650",
+//       originalPrice: "$125",
+//       totalDiscount: "70% off",
+//     },
+//     {
+//       id: 6,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: `Mammon Women's Handbag (Set of 3, Beige)`,
+//       discountPrice: "$75",
+//       originalPrice: "$199",
+//       totalDiscount: "60% off",
+//     },
+//     {
+//       id: 7,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: `IWC Schaffhausen 2021 Pilot's Watch "SIHH 2019" 44mm`,
+//       discountPrice: "$65",
+//       originalPrice: "$151",
+//       totalDiscount: "60% off",
+//     },
+//     {
+//       id: 8,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: `Labbin White Sneakers For Men and Female`,
+//       discountPrice: "$650",
+//       originalPrice: "$125",
+//       totalDiscount: "70% off",
+//     },
+//     {
+//       id: 9,
+//       image: require("../../../assets/gray_img.png"),
+//       title: "COLGATE",
+//       description: `Mammon Women's Handbag (Set of 3, Beige)`,
+//       discountPrice: "$75",
+//       originalPrice: "$199",
+//       totalDiscount: "60% off",
+//     },
+//   ];
+
+//   const renderCarouselItem = ({ item, index }) => {
+//     if (item.isMap) {
+//       return (
+//         <View style={styles.carouselItemContainer}>
+//           <Dashboard2 />
+//         </View>
+//       );
+//     }
+//     if (item.isDashboard) {
+//       return (
+//         <View style={styles.carouselItemContainer}>
+//           <Dashboard />
+//         </View>
+//       );
+//     }
+//     return (
+//       <View style={styles.carouselItemContainer}>
+//         <Dashboard3 />
+//       </View>
+//     );
+//   };
+
+//   const renderItem = ({ item }) => (
+//     <Pressable
+//       style={styles.topBinPressable}
+//       onPress={() => navigation.navigate("TopBinsNearMe")}
+//     >
+//       <View style={styles.topBinCard}>
+//         <Image source={item.image} style={styles.topBinImage} />
+//         <Ionicons
+//           name="heart"
+//           size={hp(3)}
+//           color={"#EE2525"}
+//           style={styles.heartIcon}
+//         />
+//         <View style={styles.topBinContent}>
+//           <View>
+//             <Text style={styles.topBinTitle}>{item.title}</Text>
+//             <Text style={styles.topBinLocation}>{item.location}</Text>
+//             <Text style={styles.topBinDistance}>{item.distance}</Text>
+//           </View>
+//           <View style={styles.topBinReviewContainer}>
+//             <FontAwesome name="star" size={12} color={"#fff"} />
+//             <Text style={styles.topBinReviewText}>{item.review}</Text>
+//           </View>
+//         </View>
+//       </View>
+//     </Pressable>
+//   );
+
+//   const renderProductsItem = ({ item }) => (
+//     <Pressable
+//       style={styles.productPressable}
+//       onPress={() => navigation.navigate("ActivityFeed")}
+//     >
+//       <View style={styles.productCard}>
+//         <Image source={item.image} style={styles.productImage} />
+//         <Ionicons
+//           name="heart"
+//           size={hp(3)}
+//           color={"#EE2525"}
+//           style={styles.heartIcon}
+//         />
+//         <View style={styles.productContent}>
+//           <View>
+//             <Text style={styles.productTitle}>{item.title}</Text>
+//             <Text style={styles.productDescription}>{item.description}</Text>
+//             <Text style={styles.productPrice}>{item.price}</Text>
+//           </View>
+//         </View>
+//       </View>
+//     </Pressable>
+//   );
+
+//   const renderPromotionItem = ({ item }) => (
+//     <Pressable
+//       style={styles.promotionPressable}
+//       onPress={() => navigation.navigate("ActivityFeed")}
+//     >
+//       <View style={styles.promotionCard}>
+//         <Image source={item.image} style={styles.promotionImage} />
+//         <View style={styles.promotionContent}>
+//           <View>
+//             <Text style={styles.promotionTitle}>{item.title}</Text>
+//             <Text style={styles.promotionDescription}>
+//               {item.shortDescription}
+//             </Text>
+//             <Text style={styles.promotionStatus}>Active</Text>
+//             <Text style={styles.promotionDate}>
+//               <GiftIcon /> Jun20 to July20
+//             </Text>
+//           </View>
+//         </View>
+//       </View>
+//     </Pressable>
+//   );
+
+//   const renderMyFavourites = ({ item }) => (
+//     <Pressable style={styles.favouritePressable}>
+//       <View style={styles.favouriteCard}>
+//         <Image source={item.image} style={styles.favouriteImage} />
+//         <View style={styles.favouriteDescriptionContainer}>
+//           <Text style={styles.favouriteDescription}>{item.description}</Text>
+//         </View>
+//         <View style={styles.favouritePriceContainer}>
+//           <View>
+//             <Text style={styles.favouriteDiscountPrice}>
+//               {item.discountPrice}
+//             </Text>
+//             <Text style={styles.favouritePriceText}>
+//               <Text style={styles.favouriteOriginalPrice}>
+//                 {item.originalPrice}
+//               </Text>
+//               {"  "}
+//               {item.totalDiscount}
+//             </Text>
+//           </View>
+//         </View>
+//       </View>
+//     </Pressable>
+//   );
+//   const pagination = () => {
+//     return (
+//       <Pagination
+//         dotsLength={carouselImages.length}
+//         activeDotIndex={activeSlide}
+//         containerStyle={styles.paginationContainer}
+//         dotStyle={styles.paginationDot}
+//         inactiveDotStyle={styles.paginationInactiveDot}
+//         inactiveDotOpacity={0.3}
+//         inactiveDotScale={0.7}
+//       />
+//     );
+//   };
+//   return (
+//     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+//       <StatusBar translucent={true} backgroundColor={"transparent"} />
+//       <ImageBackground
+//         source={require("../../../assets/vector_1.png")}
+//         style={styles.vector}
+//       >
+//         <View style={styles.headerContainer}>
+//           <View style={styles.headerContent}>
+//             <View style={styles.logoContainer}>
+//               <BinIQIcon />
+//             </View>
+//             <View style={styles.headerIcons}>
+//               <Pressable
+//                 style={styles.notificationButton}
+//                 onPress={() => navigation.navigate("Notifications")}
+//               >
+//                 <Notification height={hp(3)} width={hp(3)} />
+//               </Pressable>
+//               <TouchableOpacity onPress={handleLogout}>
+//                 <MaterialIcons name="logout" size={25} color={"#c0392b"} />
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+//           <View style={styles.searchContainer}>
+//             <TouchableOpacity
+//               style={styles.uploadButton}
+//               onPress={() => navigation.navigate("AddProduct")}
+//             >
+//               <View style={styles.uploadIcon}>
+//                 <UploadPlus />
+//               </View>
+//               <Text style={styles.uploadText}>UPLOAD NEW CONTENT</Text>
+//             </TouchableOpacity>
+//           </View>
+//         </View>
+//         <Carousel
+//           data={carouselImages}
+//           renderItem={renderCarouselItem}
+//           sliderWidth={width}
+//           itemWidth={width}
+//           layout={"default"}
+//           loop={true}
+//           onSnapToItem={(index) => setActiveSlide(index)}
+//         />
+//         {pagination()}
+//       </ImageBackground>
+//       <View style={styles.trendingSection}>
+//         <View style={styles.sectionHeader}>
+//           <Text style={styles.sectionTitle}>Trending Products</Text>
+//           <TouchableOpacity onPress={() => navigation.navigate("ActivityFeed")}>
+//             <Text style={styles.viewAllText}>View All</Text>
+//           </TouchableOpacity>
+//         </View>
+//         <View style={styles.flatListContainer}>
+//           <FlatList
+//             data={myFavourites}
+//             renderItem={renderMyFavourites}
+//             keyExtractor={(item) => item.id.toString()}
+//             horizontal={true}
+//             showsHorizontalScrollIndicator={false}
+//           />
+//         </View>
+//         <View style={styles.flatListContainer}>
+//           <FlatList
+//             data={myFavourites}
+//             renderItem={renderMyFavourites}
+//             keyExtractor={(item) => item.id.toString()}
+//             horizontal={true}
+//             showsHorizontalScrollIndicator={false}
+//           />
+//         </View>
+//       </View>
+//       <View style={styles.activitySection}>
+//         <View style={styles.sectionHeader}>
+//           <Text style={styles.sectionTitle}>ACTIVITY FEED</Text>
+//           <TouchableOpacity onPress={() => navigation.navigate("ActivityFeed")}>
+//             <Text style={styles.viewAllText}>View All</Text>
+//           </TouchableOpacity>
+//         </View>
+//         <FlatList
+//           data={products}
+//           renderItem={renderProductsItem}
+//           keyExtractor={(item) => item.id.toString()}
+//           horizontal={true}
+//           showsHorizontalScrollIndicator={false}
+//         />
+//         <FlatList
+//           data={products}
+//           renderItem={renderProductsItem}
+//           keyExtractor={(item) => item.id.toString()}
+//           horizontal={true}
+//           showsHorizontalScrollIndicator={false}
+//         />
+//       </View>
+//       <View style={styles.promotionSection}>
+//         <View style={styles.sectionHeader}>
+//           <Text style={styles.sectionTitle}>PROMOTIONS</Text>
+//         </View>
+//         <FlatList
+//           data={promotions}
+//           renderItem={renderPromotionItem}
+//           keyExtractor={(item) => item.id.toString()}
+//           horizontal={true}
+//           showsHorizontalScrollIndicator={false}
+//         />
+//       </View>
+//       <View style={styles.iqPortalSection}>
+//         <View style={styles.sectionHeader}>
+//           <Text style={styles.sectionTitle}>IQ PORTAL</Text>
+//         </View>
+//         <View style={styles.iqPortalContainer}>
+//           <Pressable
+//             style={styles.iqPortalPressable}
+//             onPress={() => navigation.navigate("IQPortal")}
+//           >
+//             <View style={styles.iqPortalCard}>
+//               <Image
+//                 source={require("../../../assets/reseller_training.png")}
+//                 style={styles.iqPortalImage}
+//               />
+//               <View style={styles.iqPortalContent}>
+//                 <View>
+//                   <Text style={styles.iqPortalMiniHeader}>
+//                     How to start a Bin Store
+//                   </Text>
+//                   <Text style={styles.iqPortalTitle}>Bin Store</Text>
+//                   <Text style={styles.iqPortalDetails}>
+//                     Full Video • With PDF
+//                   </Text>
+//                 </View>
+//               </View>
+//             </View>
+//           </Pressable>
+//           <Pressable
+//             style={styles.iqPortalPressable}
+//             onPress={() => navigation.navigate("IQPortal")}
+//           >
+//             <View style={styles.iqPortalCard}>
+//               <Image
+//                 source={require("../../../assets/reseller_training.png")}
+//                 style={styles.iqPortalImage}
+//               />
+//               <View style={styles.iqPortalContent}>
+//                 <View>
+//                   <Text style={styles.iqPortalMiniHeader}>
+//                     Free Direct Contract Holder Training & Supplier List
+//                   </Text>
+//                   <Text style={styles.iqPortalTitle}>
+//                     Supplier Connect & Training
+//                   </Text>
+//                 </View>
+//               </View>
+//             </View>
+//           </Pressable>
+//         </View>
+//       </View>
+//     </ScrollView>
+//   );
+// };
+
+// export default HomeScreen;
+
+// const styles = StyleSheet.create({
+//   scrollView: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//   },
+//   vector: {
+//     flex: 1,
+//     width: wp(100),
+//     height: hp(78),
+//   },
+//   headerContainer: {
+//     marginTop: "6%",
+//   },
+//   headerContent: {
+//     width: wp(90),
+//     height: hp(5),
+//     alignSelf: "center",
+//     marginVertical: "4%",
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//   },
+//   logoContainer: {
+//     width: "28%",
+//     height: "100%",
+//     justifyContent: "center",
+//     alignItems: "flex-start",
+//   },
+//   headerIcons: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     gap: 4,
+//     width: "20%",
+//     height: "100%",
+//     justifyContent: "space-between",
+//   },
+//   notificationButton: {
+//     justifyContent: "center",
+//     alignItems: "flex-end",
+//   },
+//   searchContainer: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     marginHorizontal: "3%",
+//   },
+//   uploadButton: {
+//     flex: 1,
+//     flexDirection: "row",
+//     alignItems: "center",
+//     borderWidth: 1,
+//     borderRadius: 12,
+//     marginRight: 10,
+//     borderColor: "#99ABC678",
+//     height: hp(6),
+//   },
+//   uploadIcon: {
+//     padding: 10,
+//   },
+//   uploadText: {
+//     flex: 1,
+//     fontSize: hp(2),
+//     fontFamily: "Nunito-Regular",
+//     paddingVertical: 8,
+//     color: "#000",
+//     textAlign: "center",
+//   },
+//   carouselItemContainer: {
+//     width: wp(90),
+//     height: "100%",
+//     overflow: "hidden",
+//     alignSelf: "center",
+//   },
+//   paginationContainer: {
+//     position: "absolute",
+//     left: "43%",
+//     bottom: "-8%",
+//     width: wp(10),
+//     zIndex: 2,
+//   },
+//   paginationDot: {
+//     width: 10,
+//     height: 10,
+//     borderRadius: 5,
+//     backgroundColor: "#130160",
+//   },
+//   paginationInactiveDot: {
+//     backgroundColor: "rgba(0, 0, 0, 0.3)",
+//   },
+//   trendingSection: {
+//     flex: 1,
+//     width: "94%",
+//     height: hp(63),
+//     marginTop: "6%",
+//     marginHorizontal: "3%",
+//   },
+//   activitySection: {
+//     flex: 1,
+//     width: "94%",
+//     height: hp(56),
+//     marginHorizontal: "3%",
+//   },
+//   promotionSection: {
+//     flex: 1,
+//     width: "94%",
+//     height: hp(30),
+//     marginHorizontal: "3%",
+//   },
+//   iqPortalSection: {
+//     flex: 1,
+//     width: "94%",
+//     marginHorizontal: "3%",
+//     height: hp(42),
+//   },
+//   sectionHeader: {
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     marginVertical: "2.5%",
+//     paddingRight: "3%",
+//   },
+//   sectionTitle: {
+//     fontFamily: "Nunito-Bold",
+//     fontSize: hp(2.3),
+//     color: "#000000",
+//   },
+//   viewAllText: {
+//     color: "#524B6B",
+//     fontSize: hp(1.9),
+//     textDecorationLine: "underline",
+//   },
+//   flatListContainer: {
+//     marginVertical: "3%",
+//   },
+//   topBinPressable: {
+//     width: wp(50),
+//     height: hp(23),
+//     marginVertical: "7%",
+//   },
+//   topBinCard: {
+//     width: wp(47),
+//     height: hp(21.5),
+//     borderRadius: 10,
+//     elevation: 2,
+//     backgroundColor: "#fff",
+//   },
+//   topBinImage: {
+//     width: wp(47),
+//     height: hp(12),
+//     borderRadius: 10,
+//   },
+//   heartIcon: {
+//     position: "absolute",
+//     right: "2%",
+//     top: "2%",
+//   },
+//   topBinContent: {
+//     margin: "5%",
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//   },
+//   topBinTitle: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#0049AF",
+//     fontSize: hp(2),
+//   },
+//   topBinLocation: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#000",
+//     fontSize: hp(1.6),
+//   },
+//   topBinDistance: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#14BA9C",
+//     fontSize: hp(1.4),
+//   },
+//   topBinReviewContainer: {
+//     backgroundColor: "#FFBB36",
+//     height: hp(2.3),
+//     width: wp(11),
+//     flexDirection: "row",
+//     justifyContent: "space-around",
+//     alignItems: "center",
+//     padding: "1.4%",
+//     borderRadius: 4,
+//   },
+//   topBinReviewText: {
+//     color: "#fff",
+//     fontFamily: "Nunito-Regular",
+//     fontSize: hp(1.6),
+//   },
+//   productPressable: {
+//     width: wp(51),
+//     height: hp(23),
+//     marginVertical: "5%",
+//   },
+//   productCard: {
+//     width: wp(49),
+//     height: hp(21),
+//     borderRadius: 10,
+//     elevation: 2,
+//     backgroundColor: "#fff",
+//     paddingLeft: "1%",
+//   },
+//   productImage: {
+//     width: wp(49),
+//     height: hp(12),
+//   },
+//   productContent: {
+//     margin: "3%",
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//   },
+//   productTitle: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#0049AF",
+//     fontSize: hp(1.6),
+//   },
+//   productDescription: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#000",
+//     fontSize: hp(1.3),
+//   },
+//   productPrice: {
+//     fontFamily: "Nunito-Bold",
+//     color: "#000",
+//     fontSize: hp(1.5),
+//   },
+//   promotionPressable: {
+//     width: wp(33),
+//     height: hp(23),
+//     marginVertical: "5%",
+//   },
+//   promotionCard: {
+//     width: wp(29),
+//     height: hp(23),
+//     borderRadius: 10,
+//     elevation: 4,
+//     backgroundColor: "#fff",
+//     paddingLeft: "1%",
+//   },
+//   promotionImage: {
+//     width: wp(26),
+//     height: hp(12),
+//   },
+//   promotionContent: {
+//     marginTop: "10%",
+//     marginHorizontal: "3%",
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//   },
+//   promotionTitle: {
+//     fontFamily: "DMSans-Bold",
+//     color: "#000",
+//     fontSize: hp(1.3),
+//   },
+//   promotionDescription: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#000",
+//     fontSize: hp(1.3),
+//   },
+//   promotionStatus: {
+//     fontFamily: "Nunito-Bold",
+//     color: "#14BA9C",
+//     fontSize: hp(1.5),
+//     marginTop: "4%",
+//   },
+//   promotionDate: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#000",
+//     fontSize: hp(1.4),
+//   },
+//   favouritePressable: {
+//     width: wp(45),
+//     height: hp(26),
+//   },
+//   favouriteCard: {
+//     width: wp(43),
+//     height: hp(25),
+//     borderRadius: 5,
+//     elevation: 2,
+//     backgroundColor: "#fff",
+//   },
+//   favouriteImage: {
+//     width: wp(43),
+//     height: hp(13),
+//     borderRadius: 5,
+//   },
+//   favouriteDescriptionContainer: {
+//     paddingHorizontal: "2.5%",
+//   },
+//   favouriteDescription: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#000",
+//     fontSize: hp(1.5),
+//     margin: "0.5%",
+//   },
+//   favouritePriceContainer: {
+//     position: "absolute",
+//     bottom: "2%",
+//     paddingHorizontal: "3%",
+//   },
+//   favouriteDiscountPrice: {
+//     fontFamily: "Nunito-Bold",
+//     color: "#000",
+//     fontSize: hp(1.8),
+//   },
+//   favouritePriceText: {
+//     color: "red",
+//   },
+//   favouriteOriginalPrice: {
+//     fontFamily: "Nunito-Bold",
+//     color: "#808488",
+//     fontSize: hp(1.8),
+//     textDecorationLine: "line-through",
+//   },
+//   resellerPressable: {
+//     width: wp(44),
+//     height: hp(24),
+//   },
+//   resellerCard: {
+//     width: wp(42),
+//     height: hp(22),
+//     borderRadius: 5,
+//     borderWidth: 0.5,
+//     borderColor: "#e6e6e6",
+//   },
+//   resellerImage: {
+//     width: wp(42),
+//     height: hp(11),
+//     borderRadius: 5,
+//   },
+//   resellerContent: {
+//     margin: "5%",
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//   },
+//   resellerMiniHeader: {
+//     fontFamily: "Nunito-ExtraBold",
+//     color: "#0049AF",
+//     fontSize: hp(1.7),
+//   },
+//   resellerTitle: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#000",
+//     fontSize: hp(2.2),
+//     marginVertical: "1%",
+//   },
+//   resellerDetails: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#14BA9C",
+//     fontSize: hp(1.5),
+//     marginTop: "5%",
+//   },
+//   iqPortalPressable: {
+//     width: wp(47),
+//     height: hp(24),
+//   },
+//   iqPortalCard: {
+//     width: wp(47),
+//     height: hp(22),
+//     borderRadius: 5,
+//     elevation: 2,
+//     backgroundColor: "#fff",
+//     paddingLeft: "1%",
+//   },
+//   iqPortalImage: {
+//     width: wp(47),
+//     height: hp(11),
+//     borderRadius: 5,
+//   },
+//   iqPortalContent: {
+//     margin: "3%",
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//   },
+//   iqPortalMiniHeader: {
+//     fontFamily: "Nunito-ExtraBold",
+//     color: "#0049AF",
+//     fontSize: hp(1.4),
+//   },
+//   iqPortalTitle: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#000",
+//     fontSize: hp(2.2),
+//     marginVertical: "1%",
+//   },
+//   iqPortalDetails: {
+//     fontFamily: "Nunito-SemiBold",
+//     color: "#14BA9C",
+//     fontSize: hp(1.5),
+//     marginTop: "5%",
+//   },
+//   iqPortalContainer: {
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     // marginHorizontal: "2%",
+//     marginVertical: "3%",
+//   },
+// });

@@ -176,7 +176,10 @@ const Dashboard3 = ({ percentage = 70 }) => {
           <View style={styles.bottomCard1}>
             <Text style={styles.bottomcard2Title}>Quick Upload</Text>
             <View style={{ height: hp(1.7) }} />
-            <View style={styles.cardButton}>
+            <TouchableOpacity
+              style={styles.cardButton}
+              onPress={() => navigation.navigate("AddProduct")}
+            >
               <Text
                 style={{
                   color: "#fff",
@@ -187,7 +190,7 @@ const Dashboard3 = ({ percentage = 70 }) => {
               >
                 Quick Upload
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View

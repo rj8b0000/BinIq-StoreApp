@@ -33,8 +33,8 @@ import SettingsScreen from "../MainScreens/SettingsScreen";
 import ChangePassword from "../AuthenticationScreens/ChangePassword";
 import SelectUserRole from "../OnBoardingScreens/SelectUserRole";
 import SelectPlan from "../OnBoardingScreens/SelectPlan";
-import FreeSubscription from "../SubscriptionScreens/FreeSubscription";
-import PayWall from "../SubscriptionScreens/PayWall";
+// import FreeSubscription from "../SubscriptionScreens/FreeSubscription";
+// import PayWall from "../SubscriptionScreens/PayWall";
 import EditProfileScreen from "../MainScreens/EditProfileScreen";
 import MyLibrary from "../MainScreens/MyLibrary";
 import UploadScreen from "../MainScreens/UploadScreen";
@@ -42,21 +42,18 @@ import UploadSuccess from "../MainScreens/UploadSuccess";
 import EditPhotoScreen from "../MainScreens/EditPhotoScreen";
 import PromotionScreen from "../MainScreens/PromotionScreen";
 import NewPromotionScreen from "../MainScreens/NewPromotionScreen";
+import AddProduct from "../MainScreens/AddProduct";
 
 const AppNavigator = () => {
   const Stack = createStackNavigator();
   const [hideSplashScreen, setHideSplashScreen] = useState(true);
-
   return (
     <NavigationContainer>
       <Stack.Navigator
-      // initialRouteName='PayWall'
+        initialRouteName="SplashScreen" // Start with SplashScreen
+        screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen
-          name="SplashScreen"
-          component={SplashScreen}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen
           name="OnBoarding"
           component={OnboardingScreen}
@@ -207,7 +204,7 @@ const AppNavigator = () => {
           component={SelectPlan}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="FreeSubscription"
           component={FreeSubscription}
           options={{ headerShown: false }}
@@ -216,7 +213,7 @@ const AppNavigator = () => {
           name="PayWall"
           component={PayWall}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="EditProfileScreen"
           component={EditProfileScreen}
@@ -250,6 +247,11 @@ const AppNavigator = () => {
         <Stack.Screen
           name="NewPromotionScreen"
           component={NewPromotionScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddProduct"
+          component={AddProduct}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
