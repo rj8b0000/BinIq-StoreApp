@@ -26,7 +26,7 @@ import FeedbackText from "../UserProfileScreens/FeedbackText";
 import ReferFriend from "../ReferalScreens/ReferFriend";
 import ShareReferLink from "../ReferalScreens/ShareReferLink";
 import SingleItemPage from "../MainScreens/SingleItemPage";
-import ActivityFeed from "../MainScreens/ActivityFeed";
+import AllProductsScreen from "../MainScreens/AllProductsScreen";
 import NearByBins from "../MainScreens/NearByBins";
 import PromoScreen from "../QuizScreens/PromoScreen";
 import SettingsScreen from "../MainScreens/SettingsScreen";
@@ -170,8 +170,8 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="ActivityFeed"
-          component={ActivityFeed}
+          name="AllProductsScreen"
+          component={AllProductsScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

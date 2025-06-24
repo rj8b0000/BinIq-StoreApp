@@ -21,7 +21,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import SearchIcon from "../../../assets/SearchIcon.svg";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-const ActivityFeed = () => {
+const AllProductsScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { section = "Activity Feed", data = [] } = route.params || {};
@@ -124,7 +124,7 @@ const ActivityFeed = () => {
   );
 };
 
-export default ActivityFeed;
+export default AllProductsScreen;
 
 const styles = StyleSheet.create({
   container: {
