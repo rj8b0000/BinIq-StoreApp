@@ -1,4 +1,3 @@
-// src/store/index.js
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -13,6 +12,7 @@ const useStore = create(
         set({ isFirstOpen: false });
       },
       user: null,
+      product: null, // Add product state
       login: async ({ email, password }) => {
         try {
           console.log(
@@ -72,7 +72,47 @@ const useStore = create(
         }
       },
       logout: () => {
-        set({ user: null });
+        set({ user: null, product: null }); // Clear product on logout
+      },
+      fetchProductById: async (productId) => {
+        try {
+          const { user } = useStore.getState();
+          if (!user || !user.api_key) {
+            throw new Error("User not logged in or API key missing");
+          }
+          console.log(
+            "Fetching product by ID:",
+            `https://binq.paywin24.com/api/get-product-by-id`,
+            { product_id: productId }
+          );
+          const response = await axios.post(
+            `https://binq.paywin24.com/api/get-product-by-id`,
+            { product_id: productId },
+            {
+              headers: {
+                apiToken: user.api_key,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          const data = response.data;
+          console.log("Product by ID response:", data);
+
+          if (!data.success) {
+            throw new Error(data.message || "Failed to fetch product");
+          }
+
+          set({ product: data.product });
+          return data.product;
+        } catch (error) {
+          console.error("Fetch product by ID error:", error.message);
+          if (error.response) {
+            console.error("Response data:", error.response.data);
+            console.error("Response status:", error.response.status);
+          }
+          throw error;
+        }
       },
       fetchCategories: async () => {
         try {
@@ -601,7 +641,6 @@ export default useStore;
 //           console.log("Save store details response:", data.message);
 
 //           if (data.success) {
-//             // Update AsyncStorage with the new store object
 //             await AsyncStorage.setItem(
 //               "store-details",
 //               JSON.stringify(data.store)
@@ -611,6 +650,112 @@ export default useStore;
 //           return data;
 //         } catch (error) {
 //           console.error("Save store details error:", error.message);
+//           throw error;
+//         }
+//       },
+//       fetchTrendingProducts: async () => {
+//         try {
+//           const { user } = useStore.getState();
+//           if (!user || !user.api_key) {
+//             throw new Error("User not logged in or API key missing");
+//           }
+//           const response = await axios.post(
+//             "https://binq.paywin24.com/api/tranding-product",
+//             {},
+//             {
+//               headers: {
+//                 apiToken: user.api_key,
+//                 "Content-Type": "application/json",
+//               },
+//             }
+//           );
+//           if (!response.data.success) {
+//             throw new Error(
+//               response.data.message || "Failed to fetch trending products"
+//             );
+//           }
+//           const item = response.data.tranding_product;
+//           return [
+//             {
+//               id: item.id,
+//               image: { uri: item.pic },
+//               title: item.title,
+//               description: item.description,
+//               discountPrice: `$${item.offer_price}`,
+//               originalPrice: `$${item.price}`,
+//               totalDiscount: `${
+//                 100 - Math.round((item.offer_price / item.price) * 100)
+//               }% off`,
+//             },
+//           ];
+//         } catch (error) {
+//           console.error("Fetch trending products error:", error.message);
+//           throw error;
+//         }
+//       },
+//       fetchActivityFeed: async () => {
+//         try {
+//           const { user } = useStore.getState();
+//           if (!user || !user.api_key) {
+//             throw new Error("User not logged in or API key missing");
+//           }
+//           const response = await axios.post(
+//             "https://binq.paywin24.com/api/activity-feed-product",
+//             {},
+//             {
+//               headers: {
+//                 apiToken: user.api_key,
+//                 "Content-Type": "application/json",
+//               },
+//             }
+//           );
+//           if (!response.data.success) {
+//             throw new Error(
+//               response.data.message || "Failed to fetch activity feed"
+//             );
+//           }
+//           return response.data.activity_feed_products.map((item) => ({
+//             id: item.id,
+//             image: { uri: item.pic },
+//             title: item.title,
+//             description: item.description,
+//             price: `$${item.price} - $${item.offer_price}`,
+//           }));
+//         } catch (error) {
+//           console.error("Fetch activity feed error:", error.message);
+//           throw error;
+//         }
+//       },
+//       fetchPromotions: async () => {
+//         try {
+//           const { user } = useStore.getState();
+//           if (!user || !user.api_key) {
+//             throw new Error("User not logged in or API key missing");
+//           }
+//           const response = await axios.post(
+//             "https://binq.paywin24.com/api/promotion-product",
+//             {},
+//             {
+//               headers: {
+//                 apiToken: user.api_key,
+//                 "Content-Type": "application/json",
+//               },
+//             }
+//           );
+//           if (!response.data.success) {
+//             throw new Error(
+//               response.data.message || "Failed to fetch promotions"
+//             );
+//           }
+//           return response.data.promotions_products.map((item) => ({
+//             id: item.id,
+//             image: { uri: item.pic },
+//             title: item.title,
+//             shortDescription: item.description,
+//             price: `$${item.price} - $${item.offer_price}`,
+//           }));
+//         } catch (error) {
+//           console.error("Fetch promotions error:", error.message);
 //           throw error;
 //         }
 //       },
