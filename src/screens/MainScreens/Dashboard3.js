@@ -17,6 +17,7 @@ import Svg, { Line, Path } from "react-native-svg"; // For horizontal progress (
 import PieGraph from "../../Components/PieGraph";
 import { useNavigation } from "@react-navigation/native";
 import Graph from "../../../assets/Graph.svg";
+import useStore from "../../store";
 
 const Dashboard3 = ({ percentage = 70 }) => {
   const size = Dimensions.get("window").width * 0.2;
@@ -24,6 +25,7 @@ const Dashboard3 = ({ percentage = 70 }) => {
   const center = size / 2;
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * Math.PI;
+  const { user } = useStore();
 
   // Calculate the path for the semi-circle
   const semiCircle = `
@@ -42,7 +44,7 @@ const Dashboard3 = ({ percentage = 70 }) => {
       <View style={styles.header}>
         <View style={{ flex: 1 }}>
           <Text style={styles.greeting}>
-            Welcome, <Text style={styles.name}>Lee Carter</Text>
+            Welcome, <Text style={styles.name}>{user.name}</Text>
           </Text>
           <Text style={styles.subtext}>
             Showcase your best content to highlight your store’s identity
@@ -103,63 +105,6 @@ const Dashboard3 = ({ percentage = 70 }) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        {/* Upgrade Storage */}
-        {/* <View style={styles.card}>
-          <Text
-            style={{
-              fontSize: wp(3.7),
-              color: "#130160",
-              fontFamily: "Nunito-Bold",
-            }}
-          >
-            VIEWS
-          </Text>
-          <Graph width={"98%"} height={"90%"} />
-        </View> */}
-
-        {/* Unlock Education */}
-        {/* <View style={{
-                    flex: 1,
-                    width: '33.3%',
-                    height: hp(23),
-                    backgroundColor: "#F2F5F8",
-                    borderRadius: 6,
-                    marginHorizontal: 5,
-                    shadowColor: "#000",
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 4,
-                    elevation: 2,
-                    paddingVertical: '2.5%',
-                    alignItems: 'center',
-                    // justifyContent: 'space-between',
-                    paddingHorizontal: '2%'
-                }}>
-                    <Text style={styles.uppercardTitle}>MONTHLY PROFILE VIEW</Text>
-                    <View style={{ height: hp(4) }} />
-                    <ProgressBar progress={50} />
-                    <View style={{ height: hp(4) }} />
-                    <View style={styles.card2Text}>
-                        <Text style={{ color: '#000', fontFamily: 'Nunito-SemiBold', textDecorationLine: 'underline', fontSize: hp(1.7) }}>20,000 views</Text>
-                    </View>
-                </View>
-                <View style={styles.card}>
-                    <Text style={styles.uppercardTitle}>7 DAY VISITOR GROWTH</Text>
-                    <Circle
-                        size={hp(7)}
-                        progress={0.3}
-                        showsText={true}
-                        thickness={4}
-                        color="#00B813"
-                        unfilledColor="#DDF4DF"
-                        textStyle={styles.progressText}
-                        style={styles.firstCardProgressBar}
-                    />
-                    <View style={styles.card2Text}>
-                        <Text style={{ color: '#524B6B', fontFamily: 'Nunito-SemiBold', fontSize: hp(1.2) }}>Analyze user visits, engagement, and trends for your store over the past 7 days.</Text>
-                    </View>
-                </View> */}
       </View>
 
       {/* Bottom Cards */}

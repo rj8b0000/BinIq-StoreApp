@@ -12,7 +12,9 @@ const useStore = create(
         set({ isFirstOpen: false });
       },
       user: null,
-      product: null, // Add product state
+      product: null,
+      store: null,
+      notifications: { todays: [], yesturdays: [], olders: [] },
       login: async ({ email, password }) => {
         try {
           console.log(
@@ -72,7 +74,7 @@ const useStore = create(
         }
       },
       logout: () => {
-        set({ user: null, product: null }); // Clear product on logout
+        set({ user: null, product: null });
       },
       fetchProductById: async (productId) => {
         try {
@@ -234,7 +236,7 @@ const useStore = create(
           if (!data.success) {
             throw new Error(data.message || "Failed to fetch store details");
           }
-
+          set({ store: data.store });
           await AsyncStorage.setItem(
             "store-details",
             JSON.stringify(data.store)
@@ -394,6 +396,95 @@ const useStore = create(
           throw error;
         }
       },
+      signup: async ({
+        firstName,
+        lastName,
+        email,
+        mobile,
+        address,
+        userLat,
+        userLong,
+        storeName,
+        password,
+      }) => {
+        try {
+          console.log(
+            "Signup API call:",
+            `https://binq.paywin24.com/api/sign-up`
+          );
+          const response = await axios.post(
+            `https://binq.paywin24.com/api/sign-up`,
+            {
+              first_name: firstName,
+              last_name: lastName,
+              email,
+              mobile,
+              address,
+              user_lat: userLat,
+              user_long: userLong,
+              store_name: storeName,
+              password,
+              type: 2,
+            }
+          );
+
+          const data = response.data;
+          console.log("Signup response:", data);
+
+          if (!data.success) {
+            throw new Error(data.message || "Signup failed");
+          }
+
+          // if (data.user) {
+          //   set({ user: data.user });
+          // }
+
+          return data;
+        } catch (error) {
+          console.error("Signup error:", error.message);
+          throw new Error(
+            error.response?.data?.message || error.message || "Signup failed"
+          );
+        }
+      },
+      fetchNotifications: async () => {
+        try {
+          const { user } = useStore.getState();
+          if (!user || !user.api_key) {
+            throw new Error("User not logged in or API key missing");
+          }
+          console.log(
+            "Fetching notifications:",
+            `https://binq.paywin24.com/api/notifiation`
+          );
+          const response = await axios.post(
+            `https://binq.paywin24.com/api/notifiation`,
+            {},
+            {
+              headers: {
+                apiToken: user.api_key,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const data = response.data;
+          console.log("Notifications response:", data);
+
+          if (!data.success) {
+            throw new Error(data.message || "Failed to fetch notifications");
+          }
+
+          set({ notifications: data });
+          return data;
+        } catch (error) {
+          console.error("Fetch notifications error:", error.message);
+          if (error.response) {
+            console.error("Response data:", error.response.data);
+            console.error("Response status:", error.response.status);
+          }
+          throw error;
+        }
+      },
     }),
     {
       name: "app-storage",
@@ -403,7 +494,6 @@ const useStore = create(
 );
 
 export default useStore;
-// // src/store/index.js
 // import { create } from "zustand";
 // import { persist, createJSONStorage } from "zustand/middleware";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -418,6 +508,7 @@ export default useStore;
 //         set({ isFirstOpen: false });
 //       },
 //       user: null,
+//       product: null, // Add product state
 //       login: async ({ email, password }) => {
 //         try {
 //           console.log(
@@ -477,7 +568,47 @@ export default useStore;
 //         }
 //       },
 //       logout: () => {
-//         set({ user: null });
+//         set({ user: null, product: null }); // Clear product on logout
+//       },
+//       fetchProductById: async (productId) => {
+//         try {
+//           const { user } = useStore.getState();
+//           if (!user || !user.api_key) {
+//             throw new Error("User not logged in or API key missing");
+//           }
+//           console.log(
+//             "Fetching product by ID:",
+//             `https://binq.paywin24.com/api/get-product-by-id`,
+//             { product_id: productId }
+//           );
+//           const response = await axios.post(
+//             `https://binq.paywin24.com/api/get-product-by-id`,
+//             { product_id: productId },
+//             {
+//               headers: {
+//                 apiToken: user.api_key,
+//                 "Content-Type": "application/json",
+//               },
+//             }
+//           );
+
+//           const data = response.data;
+//           console.log("Product by ID response:", data);
+
+//           if (!data.success) {
+//             throw new Error(data.message || "Failed to fetch product");
+//           }
+
+//           set({ product: data.product });
+//           return data.product;
+//         } catch (error) {
+//           console.error("Fetch product by ID error:", error.message);
+//           if (error.response) {
+//             console.error("Response data:", error.response.data);
+//             console.error("Response status:", error.response.status);
+//           }
+//           throw error;
+//         }
 //       },
 //       fetchCategories: async () => {
 //         try {

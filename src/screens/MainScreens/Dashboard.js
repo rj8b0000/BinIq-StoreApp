@@ -15,6 +15,7 @@ import {
 } from "react-native-responsive-screen";
 import Svg, { Line, Path } from "react-native-svg"; // For horizontal progress (e.g., Education Level)
 import ProgressBar from "../../Components/ProgressBar";
+import useStore from "../../store";
 
 const Dashboard = ({ percentage = 70 }) => {
   const size = Dimensions.get("window").width * 0.2;
@@ -22,6 +23,7 @@ const Dashboard = ({ percentage = 70 }) => {
   const center = size / 2;
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * Math.PI;
+  const { user } = useStore();
 
   // Calculate the path for the semi-circle
   const semiCircle = `
@@ -39,7 +41,7 @@ const Dashboard = ({ percentage = 70 }) => {
       <View style={styles.header}>
         <View style={{ flex: 1 }}>
           <Text style={styles.greeting}>
-            Hello, <Text style={styles.name}>Lee Carter</Text>
+            Hello, <Text style={styles.name}>{user.name}</Text>
           </Text>
           <Text style={styles.subtext}>
             Here's what you've been up to lately!
@@ -156,95 +158,7 @@ const Dashboard = ({ percentage = 70 }) => {
       </View>
 
       {/* Bottom Cards */}
-      <View style={styles.bottomCardsContainer}>
-        {/* Current Plan */}
-        {/* <View style={styles.smallCard}>
-          <Text
-            style={{
-              fontSize: wp(3),
-              color: "#130160",
-              fontFamily: "Nunito-SemiBold",
-              textAlign: "center",
-            }}
-          >
-            LAST SHIPMENT
-          </Text>
-          <View style={{ marginTop: "20%" }}>
-            <Text
-              style={{
-                color: "#000",
-                fontFamily: "Nunito-SemiBold",
-                textDecorationLine: "underline",
-                fontSize: hp(1.2),
-              }}
-            >
-              EST. DATE
-            </Text>
-            <Text
-              style={{
-                color: "#000",
-                fontFamily: "Nunito-SemiBold",
-                fontSize: hp(1.1),
-              }}
-            >
-              31-10-2024
-            </Text>
-          </View>
-        </View> */}
-
-        {/* Education Level */}
-        {/* <View style={styles.middleCard}>
-          <Text style={styles.bottomcard2Title}>VERIFIED</Text>
-          <View style={{ height: hp(4) }} />
-          <View style={styles.cardButton}>
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "Nunito-SemiBold",
-                fontSize: hp(1.4),
-                textAlign: "center",
-              }}
-            >
-              VERIFIED NOW
-            </Text>
-          </View>
-        </View> */}
-
-        {/* Inventory Level */}
-        {/* <View style={styles.smallCard}>
-          <Text
-            style={{
-              fontSize: wp(3),
-              color: "#130160",
-              fontFamily: "Nunito-SemiBold",
-              textAlign: "center",
-            }}
-          >
-            NEXT SHIPMENT
-          </Text>
-          <View style={{ marginTop: "20%" }}>
-            <Text
-              style={{
-                color: "#000",
-                fontFamily: "Nunito-SemiBold",
-                textDecorationLine: "underline",
-                fontSize: hp(1.2),
-              }}
-            >
-              EST. DATE
-            </Text>
-            <Text
-              style={{
-                color: "#000",
-                fontFamily: "Nunito-SemiBold",
-                fontSize: hp(1.1),
-              }}
-            >
-              31-10-2024
-            </Text>
-          </View>
-        </View> */}
-      </View>
+      <View style={styles.bottomCardsContainer}></View>
       <View style={styles.enrollNowContainer}>
         <Pressable style={styles.libButton}>
           <Text style={styles.liBbuttonText}>Get verified</Text>

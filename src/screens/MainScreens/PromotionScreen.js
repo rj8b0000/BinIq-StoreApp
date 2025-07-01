@@ -178,7 +178,10 @@ const PromotionScreen = ({ route }) => {
                 Discount -{" "}
                 <Text style={styles.metaValue}>
                   {product.offer_price
-                    ? `${(1 - product.offer_price / product.price) * 100}% off`
+                    ? `${(
+                        (1 - product.offer_price / product.price) *
+                        100
+                      ).toFixed(0)}% off`
                     : "N/A"}
                 </Text>
               </Text>
